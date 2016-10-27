@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://gouyuankai.site">
+  <title>mongodb-常用操作 | 分享生活</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="show dbs 或者 show databases
+创建 或 切换工作数据库（如果不存在就自动创建数据库）
+use mydb
+查看当前工作数据库
+db
+当前数据库中所有表 
+show collections
+删除数据库 默认就是当前数据库 
+db.dorpDatabase()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongodb-常用操作">
+<meta property="og:url" content="http://gouyuankai.site/2014/12/19/mongo-operate/index.html">
+<meta property="og:site_name" content="分享生活">
+<meta property="og:description" content="show dbs 或者 show databases
+创建 或 切换工作数据库（如果不存在就自动创建数据库）
+use mydb
+查看当前工作数据库
+db
+当前数据库中所有表 
+show collections
+删除数据库 默认就是当前数据库 
+db.dorpDatabase()">
+<meta property="og:updated_time" content="2016-10-27T09:43:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mongodb-常用操作">
+<meta name="twitter:description" content="show dbs 或者 show databases
+创建 或 切换工作数据库（如果不存在就自动创建数据库）
+use mydb
+查看当前工作数据库
+db
+当前数据库中所有表 
+show collections
+删除数据库 默认就是当前数据库 
+db.dorpDatabase()">
+  
+  
+    <link rel="icon" href="/assets/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小元</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">技术随笔分享</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">小元</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小元</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">技术随笔分享</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-mongo-operate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mongodb-常用操作
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>show dbs</code> 或者 <code>show databases</code></p>
+<p>创建 或 切换工作数据库（如果不存在就自动创建数据库）</p>
+<p><code>use mydb</code></p>
+<p>查看当前工作数据库</p>
+<p><code>db</code></p>
+<p>当前数据库中所有表 </p>
+<p><code>show collections</code></p>
+<p>删除数据库 默认就是当前数据库 </p>
+<p><code>db.dorpDatabase()</code><br><a id="more"></a></p>
+<h2 id="数据库基础"><a href="#数据库基础" class="headerlink" title="数据库基础"></a>数据库基础</h2><hr>
+<p>显示所有数据库</p>
+<p><code>show dbs</code> 或者 <code>show databases</code></p>
+<p>创建 或 切换工作数据库（如果不存在就自动创建数据库）</p>
+<p><code>use mydb</code></p>
+<p>查看当前工作数据库</p>
+<p><code>db</code></p>
+<p>当前数据库中所有表 </p>
+<p><code>show collections</code></p>
+<p>删除数据库 默认就是当前数据库 </p>
+<p><code>db.dorpDatabase()</code></p>
+<p>MongoDB 中默认的数据库为 test，如果你没有创建新的数据库，集合将存放在 test 数据库中。 </p>
+<h2 id="集合相关"><a href="#集合相关" class="headerlink" title="集合相关"></a>集合相关</h2><hr>
+<p>创建一个 mycollection 的集合</p>
+<p><code>db.createCollection(&quot;mycollection&quot;)</code></p>
+<p>可以指定一些参数 创建log capped:true表示封顶模式 封顶模式是固定大小的集合，当它达到其最大大小，会自动覆盖最早的条目。如果指定true，则需要也指定size字段。</p>
+<p>size最大存储字节， max最大记录数， size为主要的参考值。</p>
+<p><code>db.createCollection(&quot;log&quot;, { capped : true, size : 5242880, max : 5000 } )</code></p>
+<p>删除表<br><code>db.COLLECTION_NAME.drop()</code><br>对比与数据库删除是</p>
+<p><code>db.dropdatabase()</code></p>
+<p>表的pretty输出  使输出格式更美观 相当于是格式工具 </p>
+<p><code>db.mycol.find().pretty()</code></p>
+<h2 id="insert与-save"><a href="#insert与-save" class="headerlink" title="insert与 save"></a>insert与 save</h2><hr>
+<p>insert 和save 都是插入一条数据，如果不存在都差不多。</p>
+<p>这里的一样是id都一样，自己加入<code>_id</code><br>但是如果以前一样的数据插入，save会覆盖。insert则会报错</p>
+<h2 id="文档的查询"><a href="#文档的查询" class="headerlink" title="文档的查询"></a>文档的查询</h2><hr>
+<p>查询所有数据 </p>
+<p><code>db.COLLECTION_NAME.find()</code></p>
+<p>返回一条数据 </p>
+<p><code>db.mycol.findOne()</code></p>
+<h3 id="数值比较条件-gt-lt-等"><a href="#数值比较条件-gt-lt-等" class="headerlink" title="数值比较条件 &gt; &lt; 等"></a>数值比较条件 &gt; &lt; 等</h3><hr>
+<p>$lt表示小于 $lte小于等于<br>$gt表示大于 $gte表示大于等于<br>$ne表示不等于<br>{key:value}表示key=value条件</p>
+<p>l表示lttle，g表示big e即equal </p>
+<ul>
+<li>找到stu 表中年龄大于18的记录 </li>
+</ul>
+<p><code>db.stu.find({&#39;age&#39;:{$gt:18}})</code></p>
+<h3 id="AND"><a href="#AND" class="headerlink" title="AND"></a>AND</h3><hr>
+<p>使用时候 {条件1，条件2}</p>
+<p><code>db.stu.find({x:{$gt:10},x:{$lt:20}})</code><br>查找学生表中x &gt; 10 并且 x&lt;20的数据</p>
+<h3 id="OR"><a href="#OR" class="headerlink" title="OR"></a>OR</h3><hr>
+<p>查找x &gt; 97 或者x小于3的数据<br>使用方式 find({ $or:[条件1，条件2] })</p>
+<p>找出x&gt;97 或者x&lt;6的数据</p>
+<p>db.stu.find({ $or:[{x:{$gt:97}}, {x:{$lt:6}}]})</p>
+<p>and与 or一起使用</p>
+<p>找出likes&gt;50 并且  （”by”: “tutorials” 或者 “title”: “MongoDB Overview”）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">db.mycol.find(&#123;</div><div class="line">  &quot;likes&quot;: &#123;</div><div class="line">    $gt: 50</div><div class="line">  &#125;,</div><div class="line">  $or: [</div><div class="line">    &#123;</div><div class="line">      &quot;by&quot;: &quot;tutorials itcast&quot;</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">      &quot;title&quot;: &quot;MongoDB Overview&quot;</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;).pretty()</div></pre></td></tr></table></figure>
+<h2 id="limit-skip使用"><a href="#limit-skip使用" class="headerlink" title="limit skip使用"></a>limit skip使用</h2><hr>
+<p>显示10条数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.mylimit.find().limit(10)</div></pre></td></tr></table></figure>
+<p>前三条不要，第四条开始找出三个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.myLimit.find().skip(3).limit(3)</div></pre></td></tr></table></figure>
+<h2 id="投影"><a href="#投影" class="headerlink" title="##投影 "></a>##投影 </h2><p>投影意思是查询到的返回结果中，只选择必要的字段，而不是选择一个文档的整个字段。</p>
+<p>key是键,1表示显示<br>多个字段显示用,号隔开</p>
+<h2 id="count"><a href="#count" class="headerlink" title="count"></a>count</h2><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db.COLLECTION_NAME.find(&#123;&#125;).count()</div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.COLLECTION_NAME.count(&#123;&#125;)</div></pre></td></tr></table></figure>
+<p>给个第二种方法的例子</p>
+<p>找出x&gt;990的个数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.mylimit.count(&#123;x:&#123;$gt:990&#125;&#125;)</div></pre></td></tr></table></figure>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><hr>
+<p>按照key排序<br>1表示升序<br>-1表示降序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db.COLLECTION_NAME.find().sort(&#123;KEY:1&#125;)</div></pre></td></tr></table></figure>
+<p>选出 x 降序排列后的 最后5要数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.mylimit.find().sort(&#123;x:-1&#125;).limit(5)</div></pre></td></tr></table></figure>
+<h2 id="distinct"><a href="#distinct" class="headerlink" title="distinct"></a>distinct</h2><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt;db.COLLECTION_NAME.distinct(&apos;key&apos;,&#123;&#125;)</div></pre></td></tr></table></figure>
+<p>实例 </p>
+<p>找出likes &gt; 20 的title 名字 结果会存放到一个数组中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.mycol.distinct(&apos;title&apos;,&#123;&apos;likes&apos;:&#123;&apos;$gt&apos;:20&#125;&#125;)</div></pre></td></tr></table></figure>
+<h2 id="update"><a href="#update" class="headerlink" title="update"></a>update</h2><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt; db.myupdate.find()</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;57fa45f4c5f80ce1ca465612&quot;), &quot;x&quot; : 1 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;57fa45f6c5f80ce1ca465613&quot;), &quot;x&quot; : 1 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;57fa45f8c5f80ce1ca465614&quot;), &quot;x&quot; : 1 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;57fa45ffc5f80ce1ca465615&quot;), &quot;x&quot; : 2 &#125;</div><div class="line">&#123; &quot;_id&quot; : ObjectId(&quot;57fa4601c5f80ce1ca465616&quot;), &quot;x&quot; : 2 &#125;</div></pre></td></tr></table></figure>
+<p>更新x=1的数据为 x=2发现只有一个数据被修改 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.myupdate.update(&#123;x:1&#125;,&#123;x:2&#125;)</div><div class="line">WriteResult(&#123; &quot;nMatched&quot; : 1, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 1 &#125;)</div></pre></td></tr></table></figure>
+<p>如果找不到就不做操作 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.myupdate.update(&#123;x:9&#125;,&#123;x:11&#125;)</div><div class="line">WriteResult(&#123; &quot;nMatched&quot; : 0, &quot;nUpserted&quot; : 0, &quot;nModified&quot; : 0 &#125;)</div></pre></td></tr></table></figure>
+<p>如果加一个true表示不存在就插入 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.myupdate.update(&#123;x:9&#125;,&#123;x:11&#125;,true)</div></pre></td></tr></table></figure>
+<p>第一个false表示 不存在不插入，第二个true表示多条更新<br>注意:多条更新的时候必须用$set操作符 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.myupdate.update(&#123;x:2&#125;,&#123;$set:&#123;x:999&#125;&#125;,false,true)</div></pre></td></tr></table></figure>
+<p>找到所有999的数据,不存在不插入,加1  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.myupdate.update(&#123;x:999&#125;,&#123;$inc:&#123;x:1&#125;&#125;,false,true)</div></pre></td></tr></table></figure>
+<h2 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h2><hr>
+<p>删除x = 6的一条数据</p>
+<p>注意:默认删除满足条件的所有数据  删除前先count一下自己所删除数据量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.myupdate.remove(&#123;x:6&#125;)</div></pre></td></tr></table></figure>
+<p>删除1条 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.myupdate.remove(&#123;x:1&#125;,true)</div></pre></td></tr></table></figure>
+<p>删除所有条 默认满足条件所有条<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.myupdate.remove(&#123;x:1&#125;,false)</div></pre></td></tr></table></figure></p>
+<h2 id="常用数据类型–附录"><a href="#常用数据类型–附录" class="headerlink" title="常用数据类型–附录"></a>常用数据类型–附录</h2><hr>
+<p>下表为MongoDB中常用的几种数据类型。</p>
+<p>String : 这是最常用的数据类型来存储数据。在MongoDB中的字符串必须是有效的UTF-8。</p>
+<p>Integer : 这种类型是用来存储一个数值。整数可以是32位或64位，这取决于您的服务器。</p>
+<p>Boolean : 此类型用于存储一个布尔值 (true/ false) 。</p>
+<p>Double : 这种类型是用来存储浮点值。</p>
+<p>Min/ Max keys : 这种类型被用来对BSON元素的最低和最高值比较。</p>
+<p>Arrays : 使用此类型的数组或列表或多个值存储到一个键。</p>
+<p>Timestamp : 时间戳。这可以方便记录时的文件已被修改或添加。</p>
+<p>Object : 此数据类型用于嵌入式的文件。</p>
+<p>Null : 这种类型是用来存储一个Null值。</p>
+<p>Symbol : 此数据类型用于字符串相同，但它通常是保留给特定符号类型的语言使用。</p>
+<p>Date : 此数据类型用于存储当前日期或时间的UNIX时间格式。可以指定自己的日期和时间，日期和年，月，日到创建对象。</p>
+<p>Object ID : 此数据类型用于存储文档的ID。</p>
+<p>Binary data : 此数据类型用于存储二进制数据。</p>
+<p>Code : 此数据类型用于存储到文档中的JavaScript代码。</p>
+<p>Regular expression : 此数据类型用于存储正则表达式</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2014/12/19/mongo-operate/" class="archive-article-date">
+  	<time datetime="2014-12-19T05:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2014/12/19/mongodb-aggregate/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          mongodb的聚合操作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/19/js-oop/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">js面向对象</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小元
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/django/" style="font-size: 16.67px;">django</a> <a href="/tags/flask/" style="font-size: 13.33px;">flask</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/js/" style="font-size: 13.33px;">js</a> <a href="/tags/mongodb/" style="font-size: 16.67px;">mongodb</a> <a href="/tags/oop/" style="font-size: 10px;">oop</a> <a href="/tags/pack/" style="font-size: 10px;">pack</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/破解/" style="font-size: 10px;">破解</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;住在南方，北方生活&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚程序猿&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

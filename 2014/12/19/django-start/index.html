@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://gouyuankai.site">
+  <title>django的工程创建和基础配置 | 分享生活</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="django的工程创建和基础配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="django的工程创建和基础配置">
+<meta property="og:url" content="http://gouyuankai.site/2014/12/19/django-start/index.html">
+<meta property="og:site_name" content="分享生活">
+<meta property="og:description" content="django的工程创建和基础配置">
+<meta property="og:image" content="http://7xr4z1.com1.z0.glb.clouddn.com/heros.png">
+<meta property="og:image" content="http://7xr4z1.com1.z0.glb.clouddn.com/books.png">
+<meta property="og:updated_time" content="2016-10-27T09:44:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="django的工程创建和基础配置">
+<meta name="twitter:description" content="django的工程创建和基础配置">
+<meta name="twitter:image" content="http://7xr4z1.com1.z0.glb.clouddn.com/heros.png">
+  
+  
+    <link rel="icon" href="/assets/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小元</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">技术随笔分享</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">小元</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小元</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">技术随笔分享</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-django-start" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      django的工程创建和基础配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>django的工程创建和基础配置</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="工程创建和数据库"><a href="#工程创建和数据库" class="headerlink" title="工程创建和数据库"></a>工程创建和数据库</h2><p>创建工程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ django-admin.py startproject firstweb</div></pre></td></tr></table></figure>
+<p>创建之后目录结构如下 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">firstweb</div><div class="line">├── firstweb</div><div class="line">│   ├── __init__.py</div><div class="line">│   ├── settings.py</div><div class="line">│   ├── urls.py</div><div class="line">│   └── wsgi.py</div><div class="line">└── manage.py</div></pre></td></tr></table></figure>
+<p>manage.py用于创建app,相当于一个管理者.settings中包含工程的配置设置, urls中 设置主要的路由。，WSGI就像是一座桥梁，一边连着web服务器，另一边连着用户的应用。但是呢，这个桥的功能很弱，有时候还需要别的桥来帮忙才能进行处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./manage.py startapp booksite</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── booksite</div><div class="line">│   ├── __init__.py</div><div class="line">│   ├── models.py</div><div class="line">│   ├── tests.py</div><div class="line">│   └── views.py</div><div class="line">├── firstweb</div><div class="line">│   ├── __init__.py</div><div class="line">│   ├── __init__.pyc</div><div class="line">│   ├── settings.py</div><div class="line">│   ├── settings.pyc</div><div class="line">│   ├── urls.py</div><div class="line">│   └── wsgi.py</div><div class="line">└── manage.py</div></pre></td></tr></table></figure>
+<p>创建模型 该模型中的类对应着表 属性对应着字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"> 1 from django.db import models</div><div class="line"> 2 </div><div class="line"> 3 # Create your models here.</div><div class="line"> 4 </div><div class="line"> 5 </div><div class="line"> 6 class BookInfo(models.Model):</div><div class="line"> 7     btitle = models.CharField(max_length=10)</div><div class="line"> 8     bpub_date = models.DateTimeField()</div><div class="line"> 9 </div><div class="line">10 class HeroInfo(models.Model):</div><div class="line">11 </div><div class="line">12     hname = models.CharField(max_length=10)</div><div class="line">13     hgender = models.BooleanField()</div><div class="line">14     hcontent = models.CharField(max_length=100)</div><div class="line">15     hBook = models.ForeignKey(BookInfo)</div></pre></td></tr></table></figure>
+<p>设计好之后 可以按照表转为 sql语句 准备创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./manage.py makemigrations</div></pre></td></tr></table></figure>
+<p>创建迁移之后  就按照迁移 创建数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">./manage.py migrate</div><div class="line"></div><div class="line">Running migrations:</div><div class="line">  Rendering model states... DONE</div><div class="line">  Applying contenttypes.0001_initial... OK</div><div class="line">  Applying contenttypes.0002_remove_content_type_name... OK</div><div class="line">  Applying auth.0001_initial... OK</div><div class="line">  Applying auth.0002_alter_permission_name_max_length... OK</div><div class="line">  Applying auth.0003_alter_user_email_max_length... OK</div><div class="line">  Applying auth.0004_alter_user_username_opts... OK</div><div class="line">  Applying auth.0005_alter_user_last_login_null... OK</div><div class="line">  Applying auth.0006_require_contenttypes_0002... OK</div><div class="line">  Applying sessions.0001_initial... OK</div><div class="line">  Applying sites.0001_initial... OK</div></pre></td></tr></table></figure>
+<p>就产生了bookdb数据库， 这个名字在setting中设置， 数据库类型也在setting中可以设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── bookdb</div><div class="line">├── booksite</div><div class="line">│   ├── __init__.py</div><div class="line">│   ├── models.py</div><div class="line">│   ├── tests.py</div><div class="line">│   └── views.py</div><div class="line">├── firstweb</div><div class="line">│   ├── __init__.py</div><div class="line">│   ├── __init__.pyc</div><div class="line">│   ├── settings.py</div><div class="line">│   ├── settings.pyc</div><div class="line">│   ├── urls.py</div><div class="line">│   └── wsgi.py</div><div class="line">└── manage.py</div></pre></td></tr></table></figure>
+<p>通过shell可以在 命令行中创建 添加数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">./manage.py shell</div><div class="line"></div><div class="line">&gt;&gt;&gt; from booksite.models import *</div><div class="line">&gt;&gt;&gt; </div><div class="line">&gt;&gt;&gt; </div><div class="line">&gt;&gt;&gt; </div><div class="line">&gt;&gt;&gt; b = BookInfo()</div><div class="line">&gt;&gt;&gt; b.btitle = &apos;天龙八部&apos;</div><div class="line">&gt;&gt;&gt; </div><div class="line">&gt;&gt;&gt; from datetime import datetime</div><div class="line"></div><div class="line">&gt;&gt;&gt; b.bpub_date = datetime(2012,10,1)</div><div class="line">&gt;&gt;&gt; b.save()</div><div class="line"></div><div class="line">&gt;&gt;&gt; h = HeroInfo()</div><div class="line">&gt;&gt;&gt; h.hname = &apos;乔峰&apos;</div><div class="line">&gt;&gt;&gt; h.hgender = True</div><div class="line">&gt;&gt;&gt; h.hcontent = &apos;降龙十八掌&apos;</div><div class="line">&gt;&gt;&gt; h.hBook = b</div><div class="line">&gt;&gt;&gt; h.save()</div></pre></td></tr></table></figure>
+<p>h.hBook = b之后<br>b中就有一个heroinfo_set 这个集合中保存着 所有的 被引用到了那些英雄。<br>实质是在 把自己的id主键 赋值给 hero了。也就算是说hero引用了book主键</p>
+<p><img src="http://7xr4z1.com1.z0.glb.clouddn.com/heros.png" alt=""></p>
+<p>可以在这个集合中直接添加，不需要再一个个绑定了</p>
+<p><img src="http://7xr4z1.com1.z0.glb.clouddn.com/books.png" alt=""></p>
+<p>整个对象作为外键 也可以快速绑定,自动把b的主键id给创建的新对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; b.heroinfo_set.create(hname=&apos;虚竹&apos;,hgender=True, hcontent=&apos;北冥神功&apos;)</div><div class="line">&lt;HeroInfo: HeroInfo object&gt;</div></pre></td></tr></table></figure>
+<hr>
+<p>##后台admin管理</p>
+<p>主要步骤 </p>
+<ul>
+<li>创建超级管理员 <code>python manage.py createsuperuser</code></li>
+<li>到app目录下 注册 admin.site.register(class)</li>
+</ul>
+<p>登陆 admin就可以访问了<br>但是界面中没有我们的两个表 需要注册<br>到app下的 admin.py中  注册控制显示效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"> <span class="number">1</span> <span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</div><div class="line"> <span class="number">2</span> <span class="keyword">from</span> models <span class="keyword">import</span> *</div><div class="line"> <span class="number">3</span> <span class="comment"># Register your models here.</span></div><div class="line"> <span class="number">4</span> <span class="comment">#控制内嵌</span></div><div class="line"> <span class="number">5</span> <span class="class"><span class="keyword">class</span> <span class="title">HeroInline</span><span class="params">(admin.StackedInline)</span>:</span></div><div class="line"> <span class="number">6</span>     model = HeroInfo</div><div class="line"> <span class="number">7</span>     extra = <span class="number">2</span></div><div class="line"> <span class="number">8</span> <span class="comment">#控制显示字段 和内嵌显示</span></div><div class="line"> <span class="number">9</span> <span class="class"><span class="keyword">class</span> <span class="title">BookAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></div><div class="line"><span class="number">10</span>     inlines = [HeroInline]</div><div class="line"><span class="number">11</span>     list_display = [<span class="string">'btitle'</span>, <span class="string">'bpub_date'</span>]</div><div class="line"><span class="number">12</span> <span class="class"><span class="keyword">class</span> <span class="title">HeroAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></div><div class="line"><span class="number">13</span>     list_display = [<span class="string">'id'</span>, <span class="string">'hname'</span>, <span class="string">'gender'</span>]</div><div class="line"><span class="number">14</span> <span class="comment">#注册类 显示  gender是一个方法  可以用models的返回值作为显示值</span></div><div class="line"><span class="number">15</span> admin.site.register(BookInfo, BookAdmin)</div><div class="line"><span class="number">16</span> admin.site.register(HeroInfo, HeroAdmin)</div></pre></td></tr></table></figure>
+<p>内联2是在Book显示的时候 多显示两个hero添加而已</p>
+<ul>
+<li>创建添加类 类中设置添加的类名 和个数</li>
+<li>把这个添加类 绑定到需要的admin类中的inlines 中</li>
+<li>样式中还有Tablur样式</li>
+</ul>
+<p>利用admin中显示字段list_display = [方法， 字段]<br>方法的返回值就是显示的效果值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class HeroInfo(models.Model):</div><div class="line"></div><div class="line">	hname = models.CharField(max_length=20)</div><div class="line">	hcontent = models.CharField(max_length=100)</div><div class="line"></div><div class="line">	hgender = models.BooleanField()</div><div class="line">	hBook = models.ForeignKey(BookInfo)</div><div class="line"></div><div class="line">	def gender(self):</div><div class="line">		if self.hgender:</div><div class="line">				return &apos;男&apos;</div><div class="line">		else:</div><div class="line">				return &apos;女&apos;</div><div class="line">	def __str__(self):</div><div class="line">		return self.hname.encode(&apos;utf-8&apos;)</div></pre></td></tr></table></figure>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>模板注意的是新版的django 需要设置DIRS<br>到setting文件中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#这个是 setting文件的  文件夹， 的 文件夹 路径 ， 也就是 工程大文件夹路径</div><div class="line">BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</div></pre></td></tr></table></figure>
+<p>根据已经有的BASE_DIR 拼接 模板路径</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="number">56</span> TEMPLATES = [</div><div class="line"><span class="number">57</span>     &#123;</div><div class="line"><span class="number">58</span>         <span class="string">'BACKEND'</span>: <span class="string">'django.template.backends.django.DjangoTemplates'</span>,</div><div class="line"><span class="number">59</span>         <span class="string">'DIRS'</span>: [os.path.join(BASE_DIR, <span class="string">'templates'</span>)],</div><div class="line"><span class="number">60</span>         <span class="string">'APP_DIRS'</span>: <span class="keyword">True</span>,</div><div class="line"><span class="number">61</span>         <span class="string">'OPTIONS'</span>: &#123;</div><div class="line"><span class="number">62</span>             <span class="string">'context_processors'</span>: [</div><div class="line"><span class="number">63</span>                 <span class="string">'django.template.context_processors.debug'</span>,</div><div class="line"><span class="number">64</span>                 <span class="string">'django.template.context_processors.request'</span>,</div><div class="line"><span class="number">65</span>                 <span class="string">'django.contrib.auth.context_processors.auth'</span>,</div><div class="line"><span class="number">66</span>                 <span class="string">'django.contrib.messages.context_processors.messages'</span>,</div><div class="line"><span class="number">67</span>             ],</div><div class="line"><span class="number">68</span>         &#125;,</div><div class="line"><span class="number">69</span>     &#125;,</div><div class="line"><span class="number">70</span> ]</div></pre></td></tr></table></figure>
+<p>##视图函数渲染 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</div><div class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</div><div class="line"><span class="comment">#from django.template import RequestContext, loader</span></div><div class="line"><span class="comment"># Create your views here.</span></div><div class="line"><span class="keyword">from</span> models <span class="keyword">import</span> *</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></div><div class="line">    alist = BookInfo.objects.all()</div><div class="line"></div><div class="line">    <span class="comment">#t = loader.load('oneapp/index.html')</span></div><div class="line">    <span class="comment">#context = RequestContext(request, &#123;'list':alist&#125;)</span></div><div class="line">    <span class="comment"># return HttpResponse(t.render(context))</span></div><div class="line">    <span class="keyword">return</span> render(request, <span class="string">'oneapp/index.html'</span>, &#123;<span class="string">'list'</span>: alist&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>两种方式都可以渲染 返回模板 后边的render 更加简单一点</li>
+</ul>
+<p>##urls配置 </p>
+<p>参数传递 直接给视图函数的形参</p>
+<p>比如输入’127.0.0.1:8000/1/‘</p>
+<p>根据urls定位到 视图函数</p>
+<p>工程url 主要起到大分类的作用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urlpatterns = [</div><div class="line">    url(<span class="string">r'^admin/'</span>, include(admin.site.urls)),</div><div class="line">    url(<span class="string">r''</span>, include(<span class="string">'oneapp.urls'</span>)),</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>app中的url</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">urlpatterns = [</div><div class="line">    url(<span class="string">r'^$'</span>, views.index),</div><div class="line">    url(<span class="string">r'^([0-9]+)/$'</span>, views.detail),</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>数字1传入到了 aid中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">detail</span><span class="params">(request, aid)</span>:</span></div><div class="line">    book1 = BookInfo.objects.get(pk=aid)</div><div class="line">    <span class="keyword">return</span> render(request, <span class="string">'oneapp/detail.html'</span>, &#123;<span class="string">'book'</span>: book1&#125;)</div><div class="line">    <span class="comment"># return HttpResponse('%s'%aid)</span></div></pre></td></tr></table></figure>
+<p>注意:如果 出现migrations错误删除 文件夹 重新创建迁移</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2014/12/19/django-start/" class="archive-article-date">
+  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/">django</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2014/12/19/flask-001flask/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          flask创建工程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/19/django-mysql/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">django-mysql配置</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小元
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/django/" style="font-size: 16.67px;">django</a> <a href="/tags/flask/" style="font-size: 13.33px;">flask</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/js/" style="font-size: 13.33px;">js</a> <a href="/tags/mongodb/" style="font-size: 16.67px;">mongodb</a> <a href="/tags/oop/" style="font-size: 10px;">oop</a> <a href="/tags/pack/" style="font-size: 10px;">pack</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/破解/" style="font-size: 10px;">破解</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;住在南方，北方生活&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚程序猿&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

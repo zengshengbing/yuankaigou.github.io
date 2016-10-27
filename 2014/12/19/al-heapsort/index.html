@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://gouyuankai.site">
+  <title>堆排序 | 分享生活</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要介绍堆的构造, 元素在堆中的上浮操作以及下沉操作，最后讲述基于这些操作的堆排序, 不对优先队列作介绍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="堆排序">
+<meta property="og:url" content="http://gouyuankai.site/2014/12/19/al-heapsort/index.html">
+<meta property="og:site_name" content="分享生活">
+<meta property="og:description" content="本文主要介绍堆的构造, 元素在堆中的上浮操作以及下沉操作，最后讲述基于这些操作的堆排序, 不对优先队列作介绍">
+<meta property="og:image" content="http://7xr4z1.com1.z0.glb.clouddn.com/headMemery.png">
+<meta property="og:image" content="http://7xr4z1.com1.z0.glb.clouddn.com/headMemery.png">
+<meta property="og:image" content="http://7xr4z1.com1.z0.glb.clouddn.com/heapOrdered.png">
+<meta property="og:image" content="http://7xr4z1.com1.z0.glb.clouddn.com/relationNode.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-693efbd2ea6f1545.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-87c1dce277f62bf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-2abfb29146e4e22e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-841ca25ca26a6d7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-576d68a2e5f6b883.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-6ac85dab80ff7da1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-2a34c83960d4107d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-585b3bba5f85b5e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-302274144f88475a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-10-27T09:52:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="堆排序">
+<meta name="twitter:description" content="本文主要介绍堆的构造, 元素在堆中的上浮操作以及下沉操作，最后讲述基于这些操作的堆排序, 不对优先队列作介绍">
+<meta name="twitter:image" content="http://7xr4z1.com1.z0.glb.clouddn.com/headMemery.png">
+  
+  
+    <link rel="icon" href="/assets/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小元</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">技术随笔分享</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">小元</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小元</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">技术随笔分享</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-al-heapsort" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      堆排序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://7xr4z1.com1.z0.glb.clouddn.com/headMemery.png" alt="印象中的堆">     </p>
+<blockquote>
+<p>本文主要介绍堆的构造, 元素在堆中的上浮操作以及下沉操作，最后讲述基于这些操作的堆排序, 不对优先队列作介绍       </p>
+</blockquote>
+<a id="more"></a>
+<h2 id="堆是什么？"><a href="#堆是什么？" class="headerlink" title="堆是什么？"></a>堆是什么？</h2><ul>
+<li>印象中的堆<br>印象中的堆是这样的</li>
+</ul>
+<p><img src="http://7xr4z1.com1.z0.glb.clouddn.com/headMemery.png" alt="印象中的堆"></p>
+<p>其实数据结构中的堆也很相似，只是节点之间多了一些逻辑的关系。</p>
+<ul>
+<li>数据结构中的堆</li>
+</ul>
+<p>数据结构中的堆节点和节点间多了一些必要的逻辑关系， 方便我们遍历。堆中有顶点，每一个节点(图片中的块)一般都有两个子节点，当然最下的节点可能没有子节点。可以从顶向下一次编号，采用1开始。</p>
+<p><img src="http://7xr4z1.com1.z0.glb.clouddn.com/heapOrdered.png" alt="数据结构中的堆"></p>
+<ul>
+<li>节点之间的序号关系<br>不难看出节点中的序号关系如下图</li>
+</ul>
+<p><img src="http://7xr4z1.com1.z0.glb.clouddn.com/relationNode.png" alt="节点关系"><br>当然从0开始编号关系也类似。</p>
+<h2 id="堆节点swim上浮"><a href="#堆节点swim上浮" class="headerlink" title="堆节点swim上浮"></a>堆节点swim上浮</h2><p>swim操作可以对堆中的任何节点进行操作， 比如函数写位swim(int k) k是要swim操作的节点序号。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1747081-693efbd2ea6f1545.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点关系"></p>
+<p><strong>逻辑</strong> </p>
+<p>比如Swim(5) 即 T, 就是T和它的上层父节点P比较。如果T大，T就和P交换, 一直和上边父节点比较， 比过了就向上交换，比不过就停下来， 这很像武林中的登塔闯关， 和一个一个的高手比较如果能打过就能继续向上(比不过的下去)，比不过就停下来。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1747081-87c1dce277f62bf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点关系"></p>
+<p><strong>代码描述</strong> </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">swim(<span class="keyword">int</span> k)&#123;</div><div class="line">	<span class="keyword">while</span>(k&gt;<span class="number">1</span> &amp;&amp; less(k/<span class="number">2</span>, k))</div><div class="line">	&#123;</div><div class="line">	   exch(k/<span class="number">2</span>,k);</div><div class="line">	   k = k/<span class="number">2</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码中<code>k = k/2</code> 就利用了节点序号之间的关系。</p>
+<h2 id="堆的sink下沉操作"><a href="#堆的sink下沉操作" class="headerlink" title="堆的sink下沉操作"></a>堆的sink下沉操作</h2><p><img src="http://upload-images.jianshu.io/upload_images/1747081-2abfb29146e4e22e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="下沉节点"></p>
+<p><strong>逻辑</strong> </p>
+<p>sink(5),就是该元素和下边的元素比较， 如果比下边的小就交换(如果比两个都小就和两个钟大的那一个交换)，一直往下，找到两个都比他小的就停止。保证三个节点的有序， 子节点比父节点小的三角原则。</p>
+<p><strong>代码描述</strong> </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">sink</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</div><div class="line">	<span class="keyword">while</span>(<span class="number">2</span>*k &lt;= N)&#123;</div><div class="line">		<span class="keyword">int</span> j = <span class="number">2</span>*k;</div><div class="line">		<span class="keyword">if</span>(j &lt; N &amp;&amp; less(j, j+<span class="number">1</span>)) j++;</div><div class="line">		<span class="keyword">if</span>(!less(k, j)) <span class="keyword">break</span>;</div><div class="line">		exch(k, j);</div><div class="line">		k = j;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码中<code>k = k/2</code> 就利用了节点序号之间的关系。</p>
+<h2 id="利用sink使堆有序化"><a href="#利用sink使堆有序化" class="headerlink" title="利用sink使堆有序化"></a>利用sink使堆有序化</h2><p>思路:sink一次可以让子节点有序化(子节点小于父节点)同理，依次sink，就可以使整个堆有序，堆有序是堆排序的前提。<br><img src="http://upload-images.jianshu.io/upload_images/1747081-841ca25ca26a6d7c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="排序示例"><br>按照分析只需要执行:</p>
+<ul>
+<li>sink(5)</li>
+<li>sink(4)</li>
+<li>sink(3)</li>
+<li>sink(2)</li>
+<li>sink(1)</li>
+</ul>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>经过上边的有序我们都已经知道什么是堆， 怎么让堆有序化，下面直接进入堆排序。</p>
+<p><strong>核心思想</strong></p>
+<blockquote>
+<p>1.取出最值<br>2.加入新的值</p>
+</blockquote>
+<p>这种思想可以运用在优先队列上。</p>
+<p>比如对数组 <code>{40，70，20，60，50，10，10，30，80}</code> 进行从小到大排序, 把最小值拿到最上边，最大值放后边。找出最大值，放数组后边， 对剩余数组构成的有序堆再尾节点和顶节点交换，下沉使其有序</p>
+<blockquote>
+<p>思考：数组怎么转化为堆呢？一图就明白了。</p>
+</blockquote>
+<ul>
+<li><p>1数组转为无序堆<br><img src="http://upload-images.jianshu.io/upload_images/1747081-576d68a2e5f6b883.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数组转为无序堆结构"></p>
+</li>
+<li><p>2堆有序化依次</p>
+</li>
+<li><p>3抽出值调整堆<br>给出如下排序过程。<br><img src="http://upload-images.jianshu.io/upload_images/1747081-6ac85dab80ff7da1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1抽出最值-&gt;剩下的调整堆有序化"></p>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1747081-2a34c83960d4107d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2抽出剩下的最值-&gt;剩下的调整堆有序化"><br><img src="http://upload-images.jianshu.io/upload_images/1747081-585b3bba5f85b5e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3抽出剩下的最值-&gt;剩下的调整堆有序化"><br><img src="http://upload-images.jianshu.io/upload_images/1747081-302274144f88475a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4重复使其全部有序"></p>
+<p><strong>Code</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a[<span class="number">9</span>] = &#123;<span class="number">40</span>, <span class="number">70</span>, <span class="number">20</span>, <span class="number">60</span>, <span class="number">50</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">30</span>, <span class="number">80</span>&#125;;</div><div class="line"><span class="keyword">int</span> len = <span class="number">9</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = len/<span class="number">2</span> - <span class="number">1</span>; i&gt;=<span class="number">0</span>; i--) &#123;</div><div class="line">    sink(a, i, len);</div><div class="line">&#125;</div><div class="line"><span class="comment">//1.堆已经有序</span></div><div class="line">printOutcome(a, N);</div><div class="line"></div><div class="line"><span class="comment">//2.重复交换顶底 再sink</span></div><div class="line"><span class="keyword">while</span> (len &gt; <span class="number">1</span>) &#123;</div><div class="line">    exchange(a, <span class="number">0</span>, --len);</div><div class="line">    sink(a, <span class="number">0</span>, len);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>开始标号用1和0，有些许差异在代码上。但是1的话会给数组0位置留一个哨兵项。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2014/12/19/al-heapsort/" class="archive-article-date">
+  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sort/">sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2014/12/19/js-webdelegate/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          js事件代理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/19/al-quicksort/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">快速排序</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小元
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/django/" style="font-size: 16.67px;">django</a> <a href="/tags/flask/" style="font-size: 13.33px;">flask</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/js/" style="font-size: 13.33px;">js</a> <a href="/tags/mongodb/" style="font-size: 16.67px;">mongodb</a> <a href="/tags/oop/" style="font-size: 10px;">oop</a> <a href="/tags/pack/" style="font-size: 10px;">pack</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/破解/" style="font-size: 10px;">破解</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;住在南方，北方生活&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚程序猿&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

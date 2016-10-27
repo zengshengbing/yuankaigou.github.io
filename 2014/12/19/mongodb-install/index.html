@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://gouyuankai.site">
+  <title>安装mongodb | 分享生活</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MacOS下安装mongodb是很方便的，首先你需要有Homebrew工具，如果没有在终端安装一个，以后安装软件特别方便">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装mongodb">
+<meta property="og:url" content="http://gouyuankai.site/2014/12/19/mongodb-install/index.html">
+<meta property="og:site_name" content="分享生活">
+<meta property="og:description" content="MacOS下安装mongodb是很方便的，首先你需要有Homebrew工具，如果没有在终端安装一个，以后安装软件特别方便">
+<meta property="og:updated_time" content="2016-10-27T09:44:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安装mongodb">
+<meta name="twitter:description" content="MacOS下安装mongodb是很方便的，首先你需要有Homebrew工具，如果没有在终端安装一个，以后安装软件特别方便">
+  
+  
+    <link rel="icon" href="/assets/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">小元</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">技术随笔分享</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">小元</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">小元</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">技术随笔分享</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-mongodb-install" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      安装mongodb
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>MacOS下安装mongodb是很方便的，首先你需要有Homebrew工具，如果没有在终端安装一个，以后安装软件特别方便<br><a id="more"></a></p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>MacOS下安装mongodb是很方便的，首先你需要有Homebrew工具，如果没有在终端安装一个，以后安装软件特别方便。执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure>
+<p>安装结束之后</p>
+<p>更新Homebrew的package数据库，在Mac的终端中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew update</div></pre></td></tr></table></figure>
+<p>开始安装MongoDb </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install mongodb</div></pre></td></tr></table></figure>
+<p>安装好之后会看到提示 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">==&gt; Summary</div><div class="line">🍺 /usr/local/Cellar/mongodb/2.6.5: 17 files, 331M</div></pre></td></tr></table></figure>
+<p>这个目录就是安装后的目录，记住。自此，mongodb就安装完毕了。</p>
+<hr>
+<h2 id="初步配置"><a href="#初步配置" class="headerlink" title="初步配置"></a>初步配置</h2><p>mongodb和其他数据库一样有客服端，和服务。可以自己配置一个服务端，自己绑定端口。</p>
+<p>找到一个自己想要配置的目录下。创建mongodb_simple工作目录，在其中创建bin目录(用来存放服务端) conf目录用来存放创建的配置文件 data目录用来存放数据库数据文件  log目录用来存放日志</p>
+<p>创建好之后，拷贝 /usr/local/Cellar/mongodb/2.6.5/mongod 到 创建的bin下.<br>利用vim 在conf中创建文件写入 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">port = 1234</div><div class="line">dbpath = data</div><div class="line">logpath = log/mongod.log</div><div class="line">fork = true</div></pre></td></tr></table></figure>
+<p>port是服务器端口<br>dbpath是数据库存放目录<br>logpath是设置服务端的配置信息文件 之后会自动创建<br>fork = true指的是创建后台进程</p>
+<p><em>整个目录结构如下</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mongodb_simple</div><div class="line">├── bin</div><div class="line">│   └── mongod</div><div class="line">├── conf</div><div class="line">│   └── mongod.conf</div><div class="line">├── data</div><div class="line">└── log</div></pre></td></tr></table></figure>
+<p>我们已经有了mongod的配置文件，也有了mongod 但是mongod服务端不知道配置文件路径，我们指定一下<br>回到mongodb_simple</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/mongod -f conf/mongod.conf</div></pre></td></tr></table></figure>
+<p>这里的conf文件就是刚才的写入文件。</p>
+<p>现在查看log中就会出现日志</p>
+<hr>
+<h2 id="连接mongdb"><a href="#连接mongdb" class="headerlink" title="连接mongdb"></a>连接mongdb</h2><p><code>/usr/local/Cellar/mongodb/2.6.5/</code></p>
+<p>这个目录下有一些常规的文件需要了解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── bsondump</div><div class="line">├── mongo</div><div class="line">├── mongod</div><div class="line">├── mongodump</div><div class="line">├── mongoexport</div><div class="line">├── mongofiles</div><div class="line">├── mongoimport</div><div class="line">├── mongooplog</div><div class="line">├── mongoperf</div><div class="line">├── mongorestore</div><div class="line">├── mongos</div><div class="line">├── mongosniff</div><div class="line">├── mongostat</div><div class="line">└── mongotop</div></pre></td></tr></table></figure>
+<ul>
+<li>mongod是执行服务端程序</li>
+<li><p>mongo 连接客户端</p>
+</li>
+<li><p>mongoexport 导出</p>
+</li>
+<li><p>ongoimport 导入</p>
+</li>
+<li><p>mongorestore 二进制备份</p>
+</li>
+<li>mongooplog 日志文件</li>
+<li>mongostat mongodb状态 </li>
+</ul>
+<p>之前已经创建了mongod服务端口是12345，我们通过服务端mongo连接。<br>为了方便使用，拷贝mongo到bin目录下 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ pwd</div><div class="line">/usr/local/Cellar/mongodb/3.2.10/bin</div><div class="line">$ cp ./mongo /Users/gougou/Desktop/mongodb_simple/bin/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mongodb_simple</div><div class="line">├── bin</div><div class="line">│   └── mongod</div><div class="line">	└── mongo</div><div class="line">├── conf</div><div class="line">│   └── mongod.conf</div><div class="line">├── data</div><div class="line">└── log</div></pre></td></tr></table></figure>
+<p>可以使用<code>mongo --help</code> 来查看客服端使用方法</p>
+<p><code>usage: mongo [options] [db address] [file names (ending in .js)]</code></p>
+<p>需要键入数据库的选项 和数据库的地址来使用</p>
+<ul>
+<li><code>u 指定用户名</code></li>
+<li><code>p 指定密码</code></li>
+</ul>
+<p>使用介绍中有 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.169.0.5:9999/foo  foo database on 192.168.0.5 machine on port 9999</div></pre></td></tr></table></figure>
+<p>需要输入数据库和端口<br>本机输入 127.0.0.1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ bin gougou$ mongo 127.0.0.1:12345/test</div><div class="line">MongoDB shell version: 3.2.10</div><div class="line">connecting to: 127.0.0.1:12345/test</div><div class="line">Server has startup warnings: </div><div class="line">2016-10-09T10:27:01.444+0800 I CONTROL  [initandlisten] </div><div class="line">2016-10-09T10:27:01.445+0800 I CONTROL  [initandlisten] ** WARNING: soft rlimits too low. Number of files is 256, should be at least 1000</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<h2 id="关闭与启动"><a href="#关闭与启动" class="headerlink" title="关闭与启动"></a>关闭与启动</h2><p>关闭服务<br><code>db.shutdownServer()</code> 如果权限不够切换到管理员 use admin在执行<br>也可以使用kill 命令结束 -9 或者 -15不推荐使用 -9<br>关闭之后<code>$ mongo 127.0.0.1:12345/test</code>会失败 因为服务端已经被我们关了</p>
+<p>输入<code>./bin/mongod</code>可以直接启动服务 如果直接输入<code>mongod</code>默认是 我们的第一份 启动服务</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2014/12/19/mongodb-install/" class="archive-article-date">
+  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2014/12/19/python-iterator/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          python迭代器和生成器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/19/soft-sublimepackcontrol/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">sublime2/3安装packagecontrol</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 小元
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/django/" style="font-size: 16.67px;">django</a> <a href="/tags/flask/" style="font-size: 13.33px;">flask</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/js/" style="font-size: 13.33px;">js</a> <a href="/tags/mongodb/" style="font-size: 16.67px;">mongodb</a> <a href="/tags/oop/" style="font-size: 10px;">oop</a> <a href="/tags/pack/" style="font-size: 10px;">pack</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/破解/" style="font-size: 10px;">破解</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;住在南方，北方生活&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚程序猿&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
