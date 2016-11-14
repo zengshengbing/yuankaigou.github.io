@@ -6,27 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://gouyuankai.site">
-  <title>js事件代理 | 分享生活</title>
+  <title>Tag: tornado | 分享生活</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="以往如果我们给一个按钮绑定事件是这样的 
-123$aLi.bind(&amp;apos;click&amp;apos;,function()&amp;#123; 	$(this).css(&amp;#123;background:&amp;apos;gold&amp;apos;&amp;#125;)&amp;#125;);
-点击之后背景变为gold颜色.
-但是如果有2000个按钮?绑定是不是太麻烦了？？">
-<meta property="og:type" content="article">
-<meta property="og:title" content="js事件代理">
-<meta property="og:url" content="http://gouyuankai.site/2014/12/19/js-webdelegate/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="分享生活">
+<meta property="og:url" content="http://gouyuankai.site/tags/tornado/index.html">
 <meta property="og:site_name" content="分享生活">
-<meta property="og:description" content="以往如果我们给一个按钮绑定事件是这样的 
-123$aLi.bind(&amp;apos;click&amp;apos;,function()&amp;#123; 	$(this).css(&amp;#123;background:&amp;apos;gold&amp;apos;&amp;#125;)&amp;#125;);
-点击之后背景变为gold颜色.
-但是如果有2000个按钮?绑定是不是太麻烦了？？">
-<meta property="og:updated_time" content="2016-10-27T09:42:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="js事件代理">
-<meta name="twitter:description" content="以往如果我们给一个按钮绑定事件是这样的 
-123$aLi.bind(&amp;apos;click&amp;apos;,function()&amp;#123; 	$(this).css(&amp;#123;background:&amp;apos;gold&amp;apos;&amp;#125;)&amp;#125;);
-点击之后背景变为gold颜色.
-但是如果有2000个按钮?绑定是不是太麻烦了？？">
+<meta name="twitter:title" content="分享生活">
   
   
     <link rel="icon" href="/assets/img/favicon.ico">
@@ -137,110 +124,54 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="post-js-webdelegate" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      js事件代理
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2015" class="archive-year">2015</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2015/12/01/tornado路由映射 /" class="archive-article-date">
+  	<time datetime="2015-12-01T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2015-12-01</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2015/12/01/tornado路由映射 /">tornado的路由映射</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>以往如果我们给一个按钮绑定事件是这样的 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$aLi.bind(&apos;click&apos;,function()&#123;</div><div class="line"> 	$(this).css(&#123;background:&apos;gold&apos;&#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>点击之后背景变为gold颜色.</p>
-<p>但是如果有2000个按钮?绑定是不是太麻烦了？？</p>
-<a id="more"></a>
-<p>以往如果我们给一个按钮绑定事件是这样的 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$aLi.bind(&apos;click&apos;,function()&#123;</div><div class="line"> 	$(this).css(&#123;background:&apos;gold&apos;&#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>点击之后背景变为gold颜色.</p>
-<p>但是如果有2000个按钮?绑定是不是太麻烦了？？</p>
-<p>这里就用到了代理这种设计模式，简单说一个例子.比如我的boss要采购一批Mac，但是boss不知道怎么采购(不熟悉业务流程)，但是他不知道我知道啊。那我的boss最快的解决方式就是让我’替’他去采购。那么此处，我的boss就是委托方，我就是代理方(delegate)–我的boss(委托方)委托我(代理方)去办事.</p>
-<p>看看JQ事件委托代码<br>其中list是一个ul,点击其中的li变色. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$list.delegate(&apos;li&apos;,&apos;click&apos;,function(event)&#123;</div><div class="line">		$(this).css(&#123;background:&apos;gold&apos;&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个方式中,通过事件冒泡的方式,我点了li(li是ul的子级),事件冒泡机制会把li收到的事件传递给父级ul。ul就知道了,用户点了什么也就是event中的target，即我点的那个li。 ul知道我点了哪一个li之后，自己不用去实现具体绑定，委托该li执行事件,ul就是委托方event.delegateTarget。这样的好处不用每个开始就绑定事件，点了哪一个绑定执行就好了。</p>
-<p>委托方可以主动取消事件代理.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$list.undelegate();</div></pre></td></tr></table></figure>
-<p>也可以这么写 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(event.delegateTarget).undelegate();</div></pre></td></tr></table></figure>
-<p>两者都是一样的，$list就是$(event.delegateTarget) 都是委托方ul。</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2014/12/19/js-webdelegate/" class="archive-article-date">
-  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
-</a>
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tornado/">tornado</a></li></ul>
 	</div>
 
-      
+          
 
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2015/12/01/python栈实现和简单实用/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          python栈实现和案例
-        
-      </div>
-    </a>
   
   
-    <a href="/2014/12/19/al-quicksort/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">快速排序</div>
-      <i class="icon-circle-right"></i>
-    </a>
+    </div></section>
   
-</nav>
 
-
-
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-	    <a class="jiathis_button_twitter"></a>
-	    <a class="jiathis_button_plus"></a> 
-	    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-
-
-
-
+    
 
 
       </div>
@@ -263,9 +194,9 @@
 		mathjax: false,
 		animate: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		root: "/",
