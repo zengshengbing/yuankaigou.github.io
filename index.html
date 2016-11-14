@@ -126,6 +126,65 @@
       <div class="body-wrap">
         
   
+    <article id="post-tornado路由映射 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="tornado的路由映射"><a href="#tornado的路由映射" class="headerlink" title="tornado的路由映射"></a>tornado的路由映射</h2><p>先前我们在构建路由映射列表的时候，使用的是二元元组，如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[(<span class="string">r"/"</span>, IndexHandler),]</div></pre></td></tr></table></figure>
+<p>在多个参数传入的时候</p>
+<p>我们可以:</p>
+<ul>
+<li>指定传入参数(字典形式)</li>
+<li>url的名字，用于反向解析</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    (<span class="string">r"/"</span>, Indexhandler),</div><div class="line">    (<span class="string">r"/cpp"</span>, SubjectHandler, &#123;<span class="string">"subject"</span>:<span class="string">"c++"</span>&#125;),</div><div class="line">    url(<span class="string">r"/python"</span>, SubjectHandler, &#123;<span class="string">"subject"</span>:<span class="string">"python"</span>&#125;, name=<span class="string">"python_url"</span>)</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>对于路由中的字典，会传入到对应的RequestHandler的initialize()方法中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> tornado.web <span class="keyword">import</span> RequestHandler</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ItcastHandler</span><span class="params">(RequestHandler)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(self, subject)</span>:</span></div><div class="line">        self.subject = subject</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></div><div class="line">        self.write(self.subject)</div></pre></td></tr></table></figure>
+<p>思考:怎么传入？</p>
+<p>对于路由中的name字段，注意此时不能再使用元组，而应使用tornado.web.url来构建。name是给该路由起一个名字，可以通过调用RequestHandler.reverse_url(name)来获取该名子对应的url。</p>
+<p>完整示例:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># coding:utf-8</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> tornado.ioloop</div><div class="line"><span class="keyword">import</span> tornado.web</div><div class="line"><span class="keyword">import</span> tornado.httpserver</div><div class="line"></div><div class="line"><span class="keyword">from</span> tornado.web <span class="keyword">import</span> url</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexView</span><span class="params">(tornado.web.RequestHandler)</span>:</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></div><div class="line">		a_url = self.reverse_url(<span class="string">"python_url"</span>)</div><div class="line"></div><div class="line">		self.write(<span class="string">"""&lt;a href="%s"&gt;123"""</span>%a_url)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubjectView</span><span class="params">(tornado.web.RequestHandler)</span>:</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(self, subject)</span>:</span></div><div class="line">		self.subject = subject</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></div><div class="line">		self.write(self.subject)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">	</div><div class="line">	app = tornado.web.Application([</div><div class="line">		(<span class="string">r"/"</span>, IndexView),</div><div class="line">		(<span class="string">r"/cpp"</span>, SubjectView, &#123;<span class="string">"subject"</span>:<span class="string">"c++"</span>&#125;),</div><div class="line">		url(<span class="string">r"/python"</span>, SubjectView, &#123;<span class="string">"subject"</span>:<span class="string">"python"</span>&#125;, name=<span class="string">"python_url"</span>),</div><div class="line">		], debug=<span class="keyword">True</span>)</div><div class="line">	http_server = tornado.httpserver.HTTPServer(app)</div><div class="line">	http_server.listen(<span class="number">8000</span>)</div><div class="line">	tornado.ioloop.IOLoop.current().start()</div></pre></td></tr></table></figure>
+<p>思考:变量名和 字符串匹配</p>
+<p>思考：form-data  www-form-urlencoded raw binary区别</p>
+<p><img src="http://7xr4z1.com1.z0.glb.clouddn.com/canshu.png" alt="canshu"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> self.get_arguments(<span class="string">"a"</span>)</div><div class="line"></div><div class="line">[<span class="string">u'666'</span>, <span class="string">u'777'</span>, <span class="string">u'1'</span>, <span class="string">u'2'</span>]</div><div class="line"></div><div class="line"><span class="keyword">print</span> self.get_argument(<span class="string">"a"</span>)</div><div class="line"></div><div class="line"><span class="number">2</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> self.get_query_argument(<span class="string">"a"</span>)</div><div class="line"></div><div class="line"><span class="number">777</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> self.get_body_argument(<span class="string">"a"</span>)</div><div class="line"></div><div class="line"><span class="number">2</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> self.get_query_arguments(<span class="string">"a"</span>)</div><div class="line"></div><div class="line">[<span class="string">u'666'</span>, <span class="string">u'777'</span>]</div><div class="line"></div><div class="line"><span class="keyword">print</span> self.get_body_arguments(<span class="string">"a"</span>)</div><div class="line"></div><div class="line">[<span class="string">u'1'</span>, <span class="string">u'2'</span>]</div></pre></td></tr></table></figure>
+<p>利用raw发送json原始数据</p>
+<p>postman选择raw</p>
+<p>发送 <code>{&quot;a&quot;:&quot;1&quot;}</code>  json数据类型, body中 类型是字符串格式的json数据。 json loads之后可以提取传递的数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexView</span><span class="params">(tornado.web.RequestHandler)</span>:</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self)</span>:</span></div><div class="line"></div><div class="line">		<span class="keyword">print</span> <span class="string">"body"</span></div><div class="line">		<span class="keyword">print</span> type(self.request.body)</div><div class="line"></div><div class="line">		<span class="keyword">print</span> <span class="string">"type"</span></div><div class="line">		<span class="keyword">print</span> self.request.headers.get(<span class="string">"Content-Type"</span>)</div><div class="line"></div><div class="line"></div><div class="line">		dic = json.loads(self.request.body)</div><div class="line">		<span class="keyword">print</span> self.write(dic.get(<span class="string">"a"</span>))</div></pre></td></tr></table></figure>
+<p>正则参数匹配</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">YKTest</span><span class="params">(RequestHandler)</span>:</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, gnum)</span>:</span></div><div class="line">		self.write(str(gnum))</div><div class="line">	</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">	tornado.options.parse_command_line()</div><div class="line">	app = tornado.web.Application(</div><div class="line">		[(<span class="string">r"/"</span>, IndexHandler),</div><div class="line">		(<span class="string">r"/python"</span>, SubjectHandler, &#123;<span class="string">"subject"</span>: <span class="string">"python"</span>&#125;),</div><div class="line">		(<span class="string">r"/cpp/"</span>,SubjectHandler,&#123;<span class="string">"subject"</span>:<span class="string">"cpp"</span>&#125;),</div><div class="line">		(<span class="string">r"/test/(?P&lt;gnum&gt;[\d]+)"</span>,YKTest)</div><div class="line">		],</div><div class="line">		debug = <span class="keyword">True</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/14/tornado路由映射 /" class="archive-article-date">
+  	<time datetime="2016-11-14T11:14:51.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-14</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-python栈实现和简单实用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -179,61 +238,6 @@
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-al-heapsort" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/19/al-heapsort/">堆排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://7xr4z1.com1.z0.glb.clouddn.com/headMemery.png" alt="印象中的堆">     </p>
-<blockquote>
-<p>本文主要介绍堆的构造, 元素在堆中的上浮操作以及下沉操作，最后讲述基于这些操作的堆排序, 不对优先队列作介绍       </p>
-</blockquote>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2014/12/19/al-heapsort/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2014/12/19/al-heapsort/" class="archive-article-date">
-  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sort/">sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 	</div>
 
       
@@ -362,6 +366,60 @@
 
 
   
+    <article id="post-soft-sublimepackcontrol" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/12/19/soft-sublimepackcontrol/">sublime2/3安装packagecontrol</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Package Control 插件是一个方便 Sublime text 管理插件的插件，但因为 Sublime Text 3 更新了 Python 的函数，API不同了，导致基于 Python 开发的插件很多都不能工作，Package Control 原来的安装方法都失效了</p>
+</blockquote>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2014/12/19/soft-sublimepackcontrol/#more">more >></a>
+        </p>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2014/12/19/soft-sublimepackcontrol/" class="archive-article-date">
+  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime/">sublime</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-django-mysql" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -391,6 +449,60 @@
     <div class="article-info article-info-index">
       
       <a href="/2014/12/19/django-mysql/" class="archive-article-date">
+  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/">django</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-django-start" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/12/19/django-start/">django的工程创建和基础配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>django的工程创建和基础配置</p>
+</blockquote>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2014/12/19/django-start/#more">more >></a>
+        </p>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2014/12/19/django-start/" class="archive-article-date">
   	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
 </a>
       
@@ -470,114 +582,6 @@
 
 
   
-    <article id="post-soft-sublimepackcontrol" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/19/soft-sublimepackcontrol/">sublime2/3安装packagecontrol</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Package Control 插件是一个方便 Sublime text 管理插件的插件，但因为 Sublime Text 3 更新了 Python 的函数，API不同了，导致基于 Python 开发的插件很多都不能工作，Package Control 原来的安装方法都失效了</p>
-</blockquote>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2014/12/19/soft-sublimepackcontrol/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2014/12/19/soft-sublimepackcontrol/" class="archive-article-date">
-  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime/">sublime</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-django-start" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/19/django-start/">django的工程创建和基础配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>django的工程创建和基础配置</p>
-</blockquote>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2014/12/19/django-start/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2014/12/19/django-start/" class="archive-article-date">
-  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/">django</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-flask-002flask" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -632,7 +636,7 @@
 
 
   
-    <article id="post-al-mergesorted" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-soft-macps" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -642,7 +646,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/19/al-mergesorted/">归并排序</a>
+      <a class="article-title" href="/2014/12/19/soft-macps/">mac版ps破解字体替换</a>
     </h1>
   
 
@@ -651,22 +655,22 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>归并排序所需要的时间和NlgN成正比， 在小规模数组处理上(比如分到15个元素的数组了)可以考虑使用插入排序，递归是小规模的比较上过于频繁， 所以可以提高效率       </p>
+<p>Mac ps cs6安装破解retina+字体</p>
 </blockquote>
         <p class="article-more-link">
-          <a class="article-more-a"  href="/2014/12/19/al-mergesorted/#more">more >></a>
+          <a class="article-more-a"  href="/2014/12/19/soft-macps/#more">more >></a>
         </p>
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2014/12/19/al-mergesorted/" class="archive-article-date">
+      <a href="/2014/12/19/soft-macps/" class="archive-article-date">
   	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/破解/">破解</a></li></ul>
 	</div>
 
       
