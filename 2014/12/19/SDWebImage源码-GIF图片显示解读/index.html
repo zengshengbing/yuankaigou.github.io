@@ -6,22 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://gouyuankai.site">
-  <title>sublime2/3安装packagecontrol | 分享生活</title>
+  <title>SDWebImage源码阅读之UIImage + GIF | 分享生活</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Package Control 插件是一个方便 Sublime text 管理插件的插件，但因为 Sublime Text 3 更新了 Python 的函数，API不同了，导致基于 Python 开发的插件很多都不能工作，Package Control 原来的安装方法都失效了">
+  <meta name="description" content="SDWebImage 加载gif图的原理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sublime2/3安装packagecontrol">
-<meta property="og:url" content="http://gouyuankai.site/2014/12/19/soft-sublimepackcontrol/index.html">
+<meta property="og:title" content="SDWebImage源码阅读之UIImage + GIF">
+<meta property="og:url" content="http://gouyuankai.site/2014/12/19/SDWebImage源码-GIF图片显示解读/index.html">
 <meta property="og:site_name" content="分享生活">
-<meta property="og:description" content="Package Control 插件是一个方便 Sublime text 管理插件的插件，但因为 Sublime Text 3 更新了 Python 的函数，API不同了，导致基于 Python 开发的插件很多都不能工作，Package Control 原来的安装方法都失效了">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-b8a18cdbe62233cd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-a279857373d57ddf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-4bcf83fddce57ce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-10-27T09:47:39.000Z">
+<meta property="og:description" content="SDWebImage 加载gif图的原理">
+<meta property="og:updated_time" content="2017-04-21T10:04:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sublime2/3安装packagecontrol">
-<meta name="twitter:description" content="Package Control 插件是一个方便 Sublime text 管理插件的插件，但因为 Sublime Text 3 更新了 Python 的函数，API不同了，导致基于 Python 开发的插件很多都不能工作，Package Control 原来的安装方法都失效了">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1747081-b8a18cdbe62233cd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="SDWebImage源码阅读之UIImage + GIF">
+<meta name="twitter:description" content="SDWebImage 加载gif图的原理">
   
   
     <link rel="icon" href="/assets/img/favicon.ico">
@@ -132,7 +128,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="post-soft-sublimepackcontrol" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-SDWebImage源码-GIF图片显示解读" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -142,7 +138,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      sublime2/3安装packagecontrol
+      SDWebImage源码阅读之UIImage + GIF
     </h1>
   
 
@@ -151,46 +147,48 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>Package Control 插件是一个方便 Sublime text 管理插件的插件，但因为 Sublime Text 3 更新了 Python 的函数，API不同了，导致基于 Python 开发的插件很多都不能工作，Package Control 原来的安装方法都失效了</p>
+<p>SDWebImage 加载gif图的原理   </p>
 </blockquote>
 <a id="more"></a>
-<blockquote>
-<p>Package Control 插件是一个方便 Sublime text 管理插件的插件，但因为 Sublime Text 3 更新了 Python 的函数，API不同了，导致基于 Python 开发的插件很多都不能工作，Package Control 原来的安装方法都失效了。<br>网上有2种使用 Git 的安装方法，感觉太麻烦了。此处将 wbond 网站的 ST3 Package Control 简便安装方法翻译转至此处，方便大家查阅。</p>
-</blockquote>
-<h2 id="简单的安装方法："><a href="#简单的安装方法：" class="headerlink" title="简单的安装方法："></a>简单的安装方法：</h2><p>从菜单 View - Show Console 或者 ctrl + ~ 快捷键，调出 console。将以下 Python 代码粘贴进去并 enter 执行，不出意外即完成安装。以下提供 ST3 和 ST2 的安装代码：</p>
-<p><em>Sublime Text 3：</em></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib.request,os; pf = <span class="string">'Package Control.sublime-package'</span>;</div><div class="line"> ipp = sublime.installed_packages_path(); </div><div class="line">urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) );</div><div class="line"> open(os.path.join(ipp, pf), <span class="string">'wb'</span>).write(urllib.request.urlopen( <span class="string">'http://sublime.wbond.net/'</span> + pf.replace(<span class="string">' '</span>,<span class="string">'%20'</span>)).read())</div></pre></td></tr></table></figure>
-<p><em>Sublime Text 2：</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">import urllib2,os; pf=&apos;Package Control.sublime-package&apos;;</div><div class="line"> ipp = sublime.installed_packages_path(); </div><div class="line">os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler( ))); </div><div class="line">open( os.path.join( ipp, pf), &apos;wb&apos; ).write( urllib2.urlopen( &apos;http://sublime.wbond.net/&apos; +pf.replace( &apos; &apos;,&apos;%20&apos; )).read()); </div><div class="line"></div><div class="line">print( &apos;Please restart Sublime Text to finish installation&apos;)</div></pre></td></tr></table></figure></p>
-<h2 id="手动安装："><a href="#手动安装：" class="headerlink" title="手动安装："></a>手动安装：</h2><p>可能由于各种原因，无法使用代码安装，那可以通过以下步骤手动安装Package Control：</p>
+<h3 id="gif图片显示"><a href="#gif图片显示" class="headerlink" title="gif图片显示"></a>gif图片显示</h3><p>gif图片是一帧一帧的图片组成， 相当于一个相册图片集合。通过这些图片的显示时间， 可以组成一个动画。 </p>
+<h3 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h3><ul>
+<li><p>传入gif图片的数据data, 返回交给imageView就可以动画显示gif图片了</p>
 <ul>
-<li><p>点击Preferences &gt; Browse Packages菜单</p>
-</li>
-<li><p>进入打开的目录的上层目录，然后再进入Installed Packages/目录</p>
-</li>
-<li><p>下载 Package Control.sublime-package 并复制到Installed Packages/目录</p>
-</li>
-<li><p>重启Sublime Text。</p>
+<li>(UIImage <em>)sd_animatedGIFWithData:(NSData </em>)data </li>
+</ul>
 </li>
 </ul>
-<p><a href="http://example.net/" target="_blank" rel="external">This link</a> has no title attribute.</p>
-<p>Package Control 主文件下载：<a href="https://github.com/wbond/sublime_package_control" target="_blank" rel="external">PackageControlGit</a></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1747081-b8a18cdbe62233cd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="示例"></p>
-<h2 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h2><p>快捷键 Ctrl+Shift+P（菜单 – Tools – Command Paletter），输入 install 选中Install Package并回车，输入或选择你需要的插件回车就安装了（注意左下角的小文字变化，会提示安装成功）。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1747081-a279857373d57ddf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用说明1"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1747081-4bcf83fddce57ce1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用说明2"></p>
-<p>插件推荐<em>SubLimeCodeIntel</em>代码自动提示</p>
+<h3 id="过程分析"><a href="#过程分析" class="headerlink" title="过程分析"></a>过程分析</h3><ul>
+<li><p>获取数据源, 以后可以通过这个源头获得 某一帧的 数据和时间等<br>CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);</p>
+</li>
+<li><p>获得图片的帧数 size_t count = CGImageSourceGetCount(source);</p>
+</li>
+<li>通过duration = duration + [self sd_frameDurationAtIndex:i source:source]; 方法可以获得总的帧动画时间, 内部通过每一帧的帧字典可以获得每一个的时间， 通过累加 得到总的事件duration</li>
+<li>animatedImage = [UIImage animatedImageWithImages:images duration:duration]; 通过这个方法返回一个处理过后的image， 可以直接显示动画了</li>
+</ul>
+<h3 id="细节处理"><a href="#细节处理" class="headerlink" title="细节处理"></a>细节处理</h3><p>没有传入data</p>
+<ul>
+<li>(UIImage <em>)sd_animatedGIFWithData:(NSData </em>)data {<br>  if (!data) {<pre><code>return nil;
+</code></pre>  }</li>
+</ul>
+<p>属性时间获取失败</p>
+<ul>
+<li>if (!duration) {<pre><code>    duration = (1.0f / 10.0f) * count;
+}
+</code></pre></li>
+</ul>
 
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2014/12/19/soft-sublimepackcontrol/" class="archive-article-date">
+      <a href="/2014/12/19/SDWebImage源码-GIF图片显示解读/" class="archive-article-date">
   	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime/">sublime</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SDWebImage/">SDWebImage</a></li></ul>
 	</div>
 
       
@@ -203,18 +201,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2014/12/19/flask-002flask/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2014/12/19/al-mergesorted/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          flask文件上传和地址参数
+          归并排序
         
       </div>
     </a>
   
   
-    <a href="/2014/12/19/al-sort1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">初级排序算法</div>
+    <a href="/2014/12/19/django-start/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">django的工程创建和基础配置</div>
       <i class="icon-circle-right"></i>
     </a>
   
