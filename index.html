@@ -126,6 +126,58 @@
       <div class="body-wrap">
         
   
+    <article id="post-python栈实现和简单实用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/01/python栈实现和简单实用/">python栈实现和案例</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="python栈实现和案例"><a href="#python栈实现和案例" class="headerlink" title="python栈实现和案例"></a>python栈实现和案例</h2><p><code>栈</code>是一种常用的数据结构，我们常说栈是先进后出的特点，正式这个特点，我们可以利用其记录很多状态，并返回到原来的状态。 本文以python实现， 然后在举例说明一些简单的应用。</p>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2015/12/01/python栈实现和简单实用/#more">more >></a>
+        </p>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2015/12/01/python栈实现和简单实用/" class="archive-article-date">
+  	<time datetime="2015-12-01T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2015-12-01</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-tornado路由映射 " class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -200,7 +252,7 @@
 
 
   
-    <article id="post-python栈实现和简单实用" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-al-heapsort" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -210,7 +262,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/01/python栈实现和简单实用/">python栈实现和案例</a>
+      <a class="article-title" href="/2014/12/19/al-heapsort/">堆排序</a>
     </h1>
   
 
@@ -218,96 +270,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="python栈实现和案例"><a href="#python栈实现和案例" class="headerlink" title="python栈实现和案例"></a>python栈实现和案例</h2><p><code>栈</code>是一种常用的数据结构，我们常说栈是先进后出的特点，正式这个特点，我们可以利用其记录很多状态，并返回到原来的状态。 本文以python实现， 然后在举例说明一些简单的应用。</p>
-<h2 id="栈的结构"><a href="#栈的结构" class="headerlink" title="栈的结构"></a>栈的结构</h2><p><img src="http://img.my.csdn.net/uploads/201301/12/1357972240_7021.png" alt="栈"></p>
-<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><ul>
-<li>Stack()创建一个空栈</li>
-<li>push() 把一个元素添加到栈顶</li>
-<li>pop() 删除栈最顶层的元素，并返回这个元素</li>
-<li>peek()  返回最顶层的元素，并不删除它</li>
-<li>isEmpty()  判断栈是否为空</li>
-<li>size()  返回栈中元素的个数</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></div><div class="line">	<span class="string">"""栈的模拟实现"""</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">		self.items = []</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> len(self.items) == <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, item)</span>:</span></div><div class="line">		self.items.append(item)</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> self.items.pop()</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">peek</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">if</span> <span class="keyword">not</span> self.isEmpty():</div><div class="line">			<span class="keyword">return</span> self.items[len(self.items) - <span class="number">1</span>]</div><div class="line">			</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> len(self.items)</div></pre></td></tr></table></figure>
-<h2 id="栈的几个实例"><a href="#栈的几个实例" class="headerlink" title="栈的几个实例"></a>栈的几个实例</h2><ul>
-<li><p>实现一个栈，带有出栈（pop），入栈（push），取最小元素（getMin）三个方法。要保证这三个方法的时间复杂度都是O(1)</p>
-</li>
-<li><p>利用栈进行括号匹配 </p>
-<p>​</p>
-</li>
-</ul>
-<p>问题1 的思路， 用一个最小值下标栈， 存储一直以来的最小值下标， 当不是最小值的数据出栈pass不理会; 如果是最小值， <code>最小值下标栈</code> 也同时pop()最小值下标， 那么剩下的<code>最小值下标栈</code> 中栈顶 元素就是 相应的最小值下标。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#coding=utf-8</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewStack</span>:</span></div><div class="line">	<span class="string">"""储存最小值的栈"""</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">		self.items = []</div><div class="line">		<span class="comment">#存储下标</span></div><div class="line">		self.stack = Stack()</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> len(self.items) == <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, item)</span>:</span></div><div class="line"></div><div class="line">		<span class="comment">#如果item 小于 原来最小的元素 </span></div><div class="line">		<span class="keyword">if</span> self.stack.size() == <span class="number">0</span>:</div><div class="line">			self.stack.push(<span class="number">0</span>)</div><div class="line">		<span class="keyword">else</span>:</div><div class="line">			<span class="keyword">if</span> (item &lt; self.items[self.stack.peek()]):</div><div class="line">				<span class="comment">#存储小标 = （0， 1）2个元素 来第三个 3（-1）</span></div><div class="line">				self.stack.push(self.size())</div><div class="line">			<span class="keyword">else</span>:</div><div class="line">				<span class="keyword">pass</span></div><div class="line">		self.items.append(item)</div><div class="line"></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="comment">#size = 4</span></div><div class="line">		<span class="comment"># [10 12 9 14]  [0, 2]</span></div><div class="line">		<span class="comment">#出栈 如果出栈的元素小标是 下标栈中的栈顶元素 下标也出站</span></div><div class="line">		<span class="comment">#如果不是不用管下标站</span></div><div class="line">		<span class="keyword">if</span> (self.size() - <span class="number">1</span>) == self.stack.peek():</div><div class="line">			self.stack.pop()</div><div class="line">		<span class="keyword">else</span>:</div><div class="line">			<span class="keyword">pass</span></div><div class="line">		<span class="keyword">return</span> self.items.pop()</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">peek</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">if</span> <span class="keyword">not</span> self.isEmpty():</div><div class="line">			<span class="keyword">return</span> self.items[len(self.items) - <span class="number">1</span>]</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">getMin</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> self.items[self.stack.peek()]</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">display</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">print</span> self.items</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> len(self.items)</div></pre></td></tr></table></figure>
-<p>问题2括号匹配思路:</p>
-<p>如果正括号出现就push入栈， 不是括号不管， 如果是反括号就出栈， 出栈的时候比较下标是否对应。最后如果正确匹配stack中size应该为0。pop异常(没有元素)也说明没有匹配。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_match</span><span class="params">(astring)</span>:</span></div><div class="line">	list1 = [<span class="string">"&#123;"</span>, <span class="string">"("</span>, <span class="string">"["</span>];</div><div class="line">	list2 = [<span class="string">"&#125;"</span>, <span class="string">")"</span>, <span class="string">"]"</span>];</div><div class="line">	is_right = <span class="keyword">True</span></div><div class="line">	<span class="keyword">try</span>:</div><div class="line">		<span class="keyword">for</span> x <span class="keyword">in</span> astring:</div><div class="line">			<span class="keyword">if</span> x <span class="keyword">in</span> list1:</div><div class="line">				stack1.push(x)</div><div class="line">			<span class="keyword">elif</span> x <span class="keyword">in</span> list2:</div><div class="line">				top = stack1.pop()</div><div class="line">				<span class="keyword">if</span> list1.index(top) != list2.index(x):</div><div class="line">					is_right = <span class="keyword">False</span></div><div class="line">					<span class="keyword">break</span></div><div class="line">			<span class="keyword">else</span>:</div><div class="line">				<span class="keyword">pass</span></div><div class="line">	<span class="keyword">except</span>:</div><div class="line">		is_right = <span class="keyword">False</span></div><div class="line"></div><div class="line">	<span class="keyword">if</span> stack1.size() != <span class="number">0</span>:</div><div class="line">		is_right = <span class="keyword">False</span></div><div class="line">	<span class="keyword">return</span> is_right</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2015/12/01/python栈实现和简单实用/" class="archive-article-date">
-  	<time datetime="2015-12-01T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2015-12-01</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-js-webdelegate" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/19/js-webdelegate/">js事件代理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>以往如果我们给一个按钮绑定事件是这样的 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$aLi.bind(&apos;click&apos;,function()&#123;</div><div class="line"> 	$(this).css(&#123;background:&apos;gold&apos;&#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>点击之后背景变为gold颜色.</p>
-<p>但是如果有2000个按钮?绑定是不是太麻烦了？？</p>
+        <p><img src="http://7xr4z1.com1.z0.glb.clouddn.com/headMemery.png" alt="印象中的堆">     </p>
+<blockquote>
+<p>本文主要介绍堆的构造, 元素在堆中的上浮操作以及下沉操作，最后讲述基于这些操作的堆排序, 不对优先队列作介绍       </p>
+</blockquote>
         <p class="article-more-link">
-          <a class="article-more-a"  href="/2014/12/19/js-webdelegate/#more">more >></a>
+          <a class="article-more-a"  href="/2014/12/19/al-heapsort/#more">more >></a>
         </p>
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2014/12/19/js-webdelegate/" class="archive-article-date">
+      <a href="/2014/12/19/al-heapsort/" class="archive-article-date">
   	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sort/">sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 	</div>
 
       
@@ -381,7 +361,7 @@
 
 
   
-    <article id="post-al-mergesorted" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-al-sort1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -391,7 +371,62 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/19/al-mergesorted/">归并排序</a>
+      <a class="article-title" href="/2014/12/19/al-sort1/">初级排序算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://upload-images.jianshu.io/upload_images/1747081-f2e0236e73fe9ff6?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="插入排序"> </p>
+<blockquote>
+<p>常用的排序， 冒泡选择插入….     </p>
+</blockquote>
+        <p class="article-more-link">
+          <a class="article-more-a"  href="/2014/12/19/al-sort1/#more">more >></a>
+        </p>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2014/12/19/al-sort1/" class="archive-article-date">
+  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-flask-001flask" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/12/19/flask-001flask/">flask创建工程</a>
     </h1>
   
 
@@ -400,22 +435,22 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>归并排序所需要的时间和NlgN成正比， 在小规模数组处理上(比如分到15个元素的数组了)可以考虑使用插入排序，递归是小规模的比较上过于频繁， 所以可以提高效率       </p>
+<p>flask入门   </p>
 </blockquote>
         <p class="article-more-link">
-          <a class="article-more-a"  href="/2014/12/19/al-mergesorted/#more">more >></a>
+          <a class="article-more-a"  href="/2014/12/19/flask-001flask/#more">more >></a>
         </p>
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2014/12/19/al-mergesorted/" class="archive-article-date">
+      <a href="/2014/12/19/flask-001flask/" class="archive-article-date">
   	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flask/">flask</a></li></ul>
 	</div>
 
       
@@ -543,7 +578,7 @@
 
 
   
-    <article id="post-flask-001flask" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-soft-sublimepackcontrol" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -553,7 +588,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/19/flask-001flask/">flask创建工程</a>
+      <a class="article-title" href="/2014/12/19/soft-sublimepackcontrol/">sublime2/3安装packagecontrol</a>
     </h1>
   
 
@@ -562,22 +597,22 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>flask入门   </p>
+<p>Package Control 插件是一个方便 Sublime text 管理插件的插件，但因为 Sublime Text 3 更新了 Python 的函数，API不同了，导致基于 Python 开发的插件很多都不能工作，Package Control 原来的安装方法都失效了</p>
 </blockquote>
         <p class="article-more-link">
-          <a class="article-more-a"  href="/2014/12/19/flask-001flask/#more">more >></a>
+          <a class="article-more-a"  href="/2014/12/19/soft-sublimepackcontrol/#more">more >></a>
         </p>
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2014/12/19/flask-001flask/" class="archive-article-date">
+      <a href="/2014/12/19/soft-sublimepackcontrol/" class="archive-article-date">
   	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flask/">flask</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime/">sublime</a></li></ul>
 	</div>
 
       
@@ -597,7 +632,7 @@
 
 
   
-    <article id="post-flask-002flask" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-js-webdelegate" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -607,7 +642,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/19/flask-002flask/">flask文件上传和地址参数</a>
+      <a class="article-title" href="/2014/12/19/js-webdelegate/">js事件代理</a>
     </h1>
   
 
@@ -615,77 +650,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>flask文件上传和地址参数  </p>
-</blockquote>
+        <p>以往如果我们给一个按钮绑定事件是这样的 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$aLi.bind(&apos;click&apos;,function()&#123;</div><div class="line"> 	$(this).css(&#123;background:&apos;gold&apos;&#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>点击之后背景变为gold颜色.</p>
+<p>但是如果有2000个按钮?绑定是不是太麻烦了？？</p>
         <p class="article-more-link">
-          <a class="article-more-a"  href="/2014/12/19/flask-002flask/#more">more >></a>
+          <a class="article-more-a"  href="/2014/12/19/js-webdelegate/#more">more >></a>
         </p>
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2014/12/19/flask-002flask/" class="archive-article-date">
+      <a href="/2014/12/19/js-webdelegate/" class="archive-article-date">
   	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
 </a>
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/flask/">flask</a></li></ul>
-	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-soft-macps" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/12/19/soft-macps/">mac版ps破解字体替换</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Mac ps cs6安装破解retina+字体</p>
-</blockquote>
-        <p class="article-more-link">
-          <a class="article-more-a"  href="/2014/12/19/soft-macps/#more">more >></a>
-        </p>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2014/12/19/soft-macps/" class="archive-article-date">
-  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/破解/">破解</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 	</div>
 
       
@@ -717,7 +699,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 小元
+    		&copy; 2017 小元
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
