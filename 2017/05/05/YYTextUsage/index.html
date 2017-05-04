@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>YYText使用 | Yuankai Gou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="/js/google-code-prettify/atelier-plateau-dark.css">
+
+  </head>
+
+  <body>
+
+<header>
+	<a id="logo" href="/" title="Yuankai Gou">
+	<img src="/favicon.png" alt="Yuankai Gou"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="http://gushi.li" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="Enter Key..." type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://weibo.com/yumemor/" target="_blank">Weibo</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+		<figure class="top-image" data-enable=true></figure>
+	
+</div>
+
+<!--文章列表-->
+<div class="wrapper">
+  
+    <!--文章-->
+<article>
+	
+  
+    <h1 class="post-title" itemprop="name">
+      YYText使用
+    </h1>
+  
+
+	<div class='post-body mb'>
+		<p><img src="http://upload-images.jianshu.io/upload_images/1747081-6143980d5ce4717b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结构"></p>
+<ul>
+<li><p>NSMutableString + YYText实例</p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/1747081-8dfbfde9e9b2e93a.gif?imageMogr2/auto-orient/strip" alt="YYText+add"> </p>
+</li>
+</ul>
+<pre><code> NSMutableAttributedString *text = [NSMutableAttributedString new];
+  NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:@&quot;Another Link&quot;];
+
+  //设置字号
+  one.font = [UIFont boldSystemFontOfSize:30];
+
+  //设置字体颜色红色
+  one.color = [UIColor redColor];
+
+
+  //字体边框
+  YYTextBorder *border = [YYTextBorder new];
+  //边框圆角
+  border.cornerRadius = 50;
+  //边框边距
+  border.insets = UIEdgeInsetsMake(0, -10, 0, -10);
+  //边框线宽
+  border.strokeWidth = 0.5;
+  //边框颜色等于字体颜色
+  border.strokeColor = one.color;
+  border.lineStyle = YYTextLineStyleSingle;
+  one.textBackgroundBorder = border;
+
+  //高亮边框
+   YYTextBorder *highlightBorder = border.copy;
+   highlightBorder.strokeWidth = 0;
+   highlightBorder.strokeColor = one.color;
+
+  //填充颜色红色
+   highlightBorder.fillColor = one.color;
+
+  //设置高亮颜色
+  YYTextHighlight *highlight = [YYTextHighlight new];
+  [highlight setColor:[UIColor whiteColor]];
+
+  //高亮的背景框
+  [highlight setBackgroundBorder:highlightBorder];
+
+  //点击高亮回调
+  highlight.tapAction = ^(UIView *containerView, NSAttributedString *text, NSRange range, CGRect rect) {
+              NSLog(@&quot;高亮1&quot;);
+          };
+  [one setTextHighlight:highlight range:one.rangeOfAll];
+</code></pre><ul>
+<li><p>tag制作 </p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/1747081-7dcfeafe053de719.gif?imageMogr2/auto-orient/strip" alt="文字tag"> </p>
+</li>
+</ul>
+<pre><code>  NSMutableAttributedString *text = [NSMutableAttributedString new];
+
+
+      //设置文字
+      NSArray *tags = @[@&quot;◉red&quot;, @&quot;◉orange&quot;];
+
+      for (int i = 0; i &lt; tags.count; i++) {
+          NSString *tag = tags[i];
+          NSMutableAttributedString *tagText = [[NSMutableAttributedString alloc] initWithString:tag];
+
+          //插入空格
+          [tagText insertString:@&quot;   &quot; atIndex:0];
+          [tagText appendString:@&quot;   &quot;];
+
+
+          //文字颜色和字体
+          tagText.font = [UIFont boldSystemFontOfSize:16];
+          tagText.color = [UIColor whiteColor];
+
+
+
+          //边框
+          YYTextBorder *border = [YYTextBorder new];
+          border.strokeWidth = 1.5;
+          border.strokeColor = [UIColor redColor];
+          border.fillColor = [UIColor greenColor];
+          border.cornerRadius = 100;
+          border.insets = UIEdgeInsetsMake(-2, -5.5, -2, -8);
+
+          [tagText setTextBackgroundBorder:border range:[tagText.string rangeOfString:tag]];
+
+          //设置绑定的效果是成为一个整体一起操作 否则删除是一个一个字母删除
+           [tagText setTextBinding:[YYTextBinding bindingWithDeleteConfirm:NO] range:tagText.rangeOfAll];
+
+          [text appendAttributedString:tagText];
+      }
+
+
+
+
+      //创建YYTextView
+      YYTextView *textView = [YYTextView new];
+      textView.attributedText = text;
+
+      textView.size = self.view.size;
+      textView.height -= 64;
+      [self.view addSubview:textView];
+</code></pre><ul>
+<li><p>文字附加</p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/1747081-a1eaf2069a13d630.gif?imageMogr2/auto-orient/strip" alt="attach"></p>
+<pre><code class="objective-c">        NSString *title = @&quot;This is git attachment: &quot;;
+
+        [text appendAttributedString:[[NSAttributedString alloc] initWithString:title attributes:nil]];
+
+        YYImage *image = [YYImage imageNamed:@&quot;niconiconi@2x.gif&quot;];
+        image.preloadAllAnimatedImageFrames = YES;
+        YYAnimatedImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+        imageView.autoPlayAnimatedImage = NO;
+
+        imageView.size = CGSizeMake(100, 100);
+
+        [imageView startAnimating];
+        [YYImageHelper addTapControlToAnimatedImageView:imageView];
+        [YYImageHelper addPanControlToAnimatedImageView:imageView];
+
+        NSMutableAttributedString *attachText = [NSMutableAttributedString attachmentStringWithContent:imageView contentMode:UIViewContentModeCenter attachmentSize:imageView.size alignToFont:font alignment:YYTextVerticalAlignmentBottom];
+        [text appendAttributedString:attachText];
+        [text appendAttributedString:[[NSAttributedString alloc] initWithString:@&quot;\n&quot; attributes:nil]];
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>图文环绕</p>
+<p>  <img src="http://upload-images.jianshu.io/upload_images/1747081-ecab2454bb3e8d76.gif?imageMogr2/auto-orient/strip" alt="图文环绕"></p>
+<pre><code class="objective-c"> UIImage *image = [[YYImage alloc] initWithData:data scale:2];
+    UIImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+    imageView.clipsToBounds = YES;
+    imageView.userInteractionEnabled = YES;
+    imageView.layer.cornerRadius = imageView.height / 2;
+
+    //核心: 通过设置textView 的exclusionPaths 在这个区域path内不会显示文字
+    imageView.center = CGPointMake(kScreenWidth / 2, kScreenWidth / 2);
+    self.imageView = imageView;
+
+    @weakify(self);
+
+    UIPanGestureRecognizer *g = [[UIPanGestureRecognizer alloc] initWithActionBlock:^(UIPanGestureRecognizer *g) {
+        @strongify(self);
+        if (!self) return;
+
+        CGPoint p = [g locationInView:self.textView];
+        self.imageView.center = p;
+
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.imageView.frame
+                                                        cornerRadius:self.imageView.layer.cornerRadius];
+        self.textView.exclusionPaths = @[path];
+    }];
+
+    [imageView addGestureRecognizer:g];
+
+    [self.textView addSubview:self.imageView];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.imageView.frame
+                                                    cornerRadius:self.imageView.layer.cornerRadius];
+    self.textView.exclusionPaths = @[path]; /// Set exclusion paths
+</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>文字绑定(把指定单位的字符集合到一起整体处理)</p>
+<ul>
+<li><p>新建一个文本解析类， 继承自NSObject， 写入regex正则， 实现协议方方法。方法中如果对文本有改变返回YES，没有改变返回NO。</p>
+</li>
+<li><p>使用时候直接 <code>textView.textParser = [YYTextExampleEmailBindingParser new];</code></p>
+</li>
+<li><p>协议方法在YYLabel或者YYTextView 文本改变调用</p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/1747081-8d4aa79802bf89e1.gif?imageMogr2/auto-orient/strip" alt="5月-04-2017 17-54-59"></p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>     @interface YYTextExampleEmailBindingParser :NSObject &lt;YYTextParser&gt;
+  @property (nonatomic, strong) NSRegularExpression *regex;
+  @end
+
+  @implementation YYTextExampleEmailBindingParser
+
+    - (instancetype)init {
+      self = [super init];
+      NSString *pattern = @&quot;[-_a-zA-Z0-9@\\.]+[ ,\\n]&quot;;
+      self.regex = [[NSRegularExpression alloc]     initWithPattern:pattern options:kNilOptions error:nil];
+      return self;
+    }
+
+  //协议方法
+-   (BOOL)parseText:(NSMutableAttributedString *)text selectedRange:(NSRangePointer)range {
+
+
+      __block BOOL changed = NO;
+
+      NSLog(@&quot;%@&quot;, text.string);
+
+      [_regex enumerateMatchesInString:text.string options:NSMatchingWithoutAnchoringBounds range:text.rangeOfAll usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+    ​      
+          if (!result) return;
+
+          //根据结果来的 range
+          //0-16
+          NSRange range = result.range;
+
+          NSLog(@&quot;-----%@------&quot;, NSStringFromRange(range));
+
+          if (range.location == NSNotFound || range.length &lt; 1) return;
+          if ([text attribute:YYTextBindingAttributeName atIndex:range.location effectiveRange:NULL]) return;
+
+          NSRange bindlingRange = NSMakeRange(range.location, range.length - 1);
+
+          YYTextBinding *binding = [YYTextBinding bindingWithDeleteConfirm:YES];
+          [text setTextBinding:binding range:bindlingRange]; /// Text binding
+          [text setColor:[UIColor colorWithRed:0.000 green:0.519 blue:1.000 alpha:1.000] range:bindlingRange];
+          changed = YES;
+      }];
+      return changed;
+    }
+  @end
+</code></pre><ul>
+<li><p>Annotation使用(查找添加位置添加)</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1747081-29e0fdde26841feb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="rubyanotaion"></p>
+<ul>
+<li>包括在上边加，后边下边加都是可以的</li>
+</ul>
+<pre><code>  one = [[NSMutableAttributedString alloc] initWithString:@&quot;日本語で書いた作文です。&quot;];
+       one.font = [UIFont boldSystemFontOfSize:30];
+
+       ruby = [YYTextRubyAnnotation new];
+       ruby.textBefore = @&quot;に&quot;;
+       [one setTextRubyAnnotation:ruby range:[one.string rangeOfString:@&quot;日&quot;]];
+</code></pre><p>​</p>
+</li>
+</ul>
+
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2017-05-04T16:50:23.000Z" itemprop="datePublished">2017-05-05</time>
+	</div>
+</article>
+
+<!--评论-->
+
+	
+<div class="ds-thread" data-thread-key="YYTextUsage" data-title="YYText使用" data-url="http://yoursite.com/2017/05/05/YYTextUsage/"></div>
+<script type="text/javascript">
+
+var duoshuoQuery = {short_name:"yumemor"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+
+
+
+
+
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://oct8d1mqf.bkt.clouddn.com/2016-10-17-15%3A42%3A28.jpg' alt='小元'>
+					<div class="media__body">
+						<h4>Yuankai Gou</h4>
+						<p class='site-description'>水深流静</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+							
+							<li>
+				        		<a href="http://weibo.com/u/5706883203" target="_blank">
+				        			
+				        				<i class="iconfont icon-weibo"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+							
+							<li>
+				        		<a href="https://github.com/yuankaigou" target="_blank">
+				        			
+				        				<i class="iconfont icon-github"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		
+			<span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
+		
+		<span>Theme by <a href="http://github.com/yumemor">Yumemor</a>. Powered by <a href="http://hexo.io">Hexo</a></span>
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+	<script src="/js/lib.js"></script>
+	<script src="/js/google-code-prettify/prettify.js"></script>
+	<script src="/js/module.js"></script>
+	<script src="/js/script.js"></script>
+	
+		<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function(){
+	 		$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+   			prettyPrint();
+		});
+	</script>
+	</body>
+</html>

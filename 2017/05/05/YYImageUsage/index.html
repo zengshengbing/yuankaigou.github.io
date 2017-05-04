@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Yuankai Gou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="/js/google-code-prettify/atelier-plateau-dark.css">
+
+  </head>
+
+  <body>
+
+<header>
+	<a id="logo" href="/" title="Yuankai Gou">
+	<img src="/favicon.png" alt="Yuankai Gou"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="http://gushi.li" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="Enter Key..." type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://weibo.com/yumemor/" target="_blank">Weibo</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+		<figure class="top-image" data-enable=true></figure>
+	
+</div>
+
+<!--文章列表-->
+<div class="wrapper">
+  
+    <!--文章-->
+<article>
+	
+	<div class='post-body mb'>
+		<hr>
+<p>layout: post<br>title: “YYText使用”<br>date: 2017-05-05 00:56:04<br>comments: true<br>tags: </p>
+<pre><code>- YYKit
+</code></pre><hr>
+<ul>
+<li><p>gif图片加载普通方法(可以控制gif的进度控制内部都有接口)</p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/1747081-4e5000cdf6dccd69.gif?imageMogr2/auto-orient/strip" alt="gitYYImage实例"></p>
+<pre><code class="objective-c">//加载image
+YYImage *image = [YYImage imageNamed:@&quot;niconiconi@2x.gif&quot;];
+
+//创建ImageView
+YYAnimatedImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+
+//YYAdd中的拓展UIView方法
+imageView.size = CGSizeMake(image.size.width * 0.6, image.size.height * 0.6);
+imageView.top = 80;
+imageView.centerX = self.view.width / 2;
+[self.view addSubview:imageView];
+</code></pre>
+</li>
+<li><p>帧动画图片组加载</p>
+<pre><code class="objective-c">    NSMutableArray *paths = [NSMutableArray new];
+
+    //把一帧一帧的图片加入到数组中
+    [paths addObject:[basePath stringByAppendingPathComponent:@&quot;d_aini1.png&quot;]];
+    [paths addObject:[basePath stringByAppendingPathComponent:@&quot;d_aini2.png&quot;]];
+    [paths addObject:[basePath stringByAppendingPathComponent:@&quot;d_aini3.png&quot;]];
+
+    //设置动画时间和循环次数
+    UIImage *image = [[YYFrameImage alloc] initWithImagePaths:paths oneFrameDuration:0.1 loopCount:0];
+
+    YYAnimatedImageView *imageView = [[YYAnimatedImageView alloc] initWithImage:image];
+    [self.view addSubview:imageView];
+</code></pre>
+<p>​</p>
+</li>
+<li><p>根据进度显示图片(已知图片的部分数据显示部分图片)</p>
+<ul>
+<li>第一种:一部分一部分逐行扫描方式</li>
+<li>第二种:模糊到清晰显示</li>
+</ul>
+<pre><code class="objective-c">    NSData *subData = //获得图片部分数据
+    YYImageDecoder *decoder = [[YYImageDecoder alloc] initWithScale:[UIScreen mainScreen].scale];
+    [decoder updateData:subData final:NO];
+    YYImageFrame *frame = [decoder frameAtIndex:0 decodeForDisplay:YES];
+    _imageView.image = frame.image; //使用UIImageView和YY都是可以的
+</code></pre>
+</li>
+<li><p>图片缓存(之前是sdWebImage)</p>
+<ul>
+<li><p>简单方法</p>
+<pre><code class="objective-c">    UIImageView *imageView = [UIImageView new];
+
+    imageView.size = CGSizeMake(300, 200);
+    imageView.top = 100;
+
+    NSURL *url = [[NSURL alloc] initWithString:@&quot;https://s-media-cache-ak0.pinimg.com/1200x/2e/0c/c5/2e0cc5d86e7b7cd42af225c29f21c37f.jpg&quot;];
+    [imageView setImageWithURL:url placeholder:nil];
+    [self.view addSubview:imageView];
+</code></pre>
+</li>
+<li><p>详细控制</p>
+<pre><code class="objective-c">//可以控制图片是否缓存，显示方式(模糊变清晰, 或者逐行扫描)
+[_webImageView setImageWithURL:url
+                       placeholder:nil
+                           options:YYWebImageOptionProgressiveBlur | YYWebImageOptionShowNetworkActivity | YYWebImageOptionSetImageWithFadeAnimation
+                          progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                              if (expectedSize &gt; 0 &amp;&amp; receivedSize &gt; 0) {
+                                  CGFloat progress = (CGFloat)receivedSize / expectedSize;
+                                  progress = progress &lt; 0 ? 0 : progress &gt; 1 ? 1 : progress;
+                                  if (_self.progressLayer.hidden) _self.progressLayer.hidden = NO;
+
+                                  //绘制到哪里
+                                  _self.progressLayer.strokeEnd = progress;
+                              }
+                          } transform:nil
+                        completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
+                            if (stage == YYWebImageStageFinished) {
+
+                                //结束后隐藏图片
+                                _self.progressLayer.hidden = YES;
+                                //动画停止并且隐藏
+                                [_self.indicator stopAnimating];
+                                _self.indicator.hidden = YES;
+                                //有图片了就隐藏label
+                                if (!image) _self.label.hidden = NO;
+                            }
+                        }];
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2017-05-04T16:56:04.000Z" itemprop="datePublished">2017-05-05</time>
+	</div>
+</article>
+
+<!--评论-->
+
+	
+<div class="ds-thread" data-thread-key="YYImageUsage" data-title="" data-url="http://yoursite.com/2017/05/05/YYImageUsage/"></div>
+<script type="text/javascript">
+
+var duoshuoQuery = {short_name:"yumemor"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+
+
+
+
+
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://oct8d1mqf.bkt.clouddn.com/2016-10-17-15%3A42%3A28.jpg' alt='小元'>
+					<div class="media__body">
+						<h4>Yuankai Gou</h4>
+						<p class='site-description'>水深流静</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+							
+							<li>
+				        		<a href="http://weibo.com/u/5706883203" target="_blank">
+				        			
+				        				<i class="iconfont icon-weibo"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+							
+							<li>
+				        		<a href="https://github.com/yuankaigou" target="_blank">
+				        			
+				        				<i class="iconfont icon-github"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		
+			<span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
+		
+		<span>Theme by <a href="http://github.com/yumemor">Yumemor</a>. Powered by <a href="http://hexo.io">Hexo</a></span>
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+	<script src="/js/lib.js"></script>
+	<script src="/js/google-code-prettify/prettify.js"></script>
+	<script src="/js/module.js"></script>
+	<script src="/js/script.js"></script>
+	
+		<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function(){
+	 		$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+   			prettyPrint();
+		});
+	</script>
+	</body>
+</html>
