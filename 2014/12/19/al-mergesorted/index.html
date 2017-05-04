@@ -1,156 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://gouyuankai.site">
-  <title>归并排序 | 分享生活</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="归并排序所需要的时间和NlgN成正比， 在小规模数组处理上(比如分到15个元素的数组了)可以考虑使用插入排序，递归是小规模的比较上过于频繁， 所以可以提高效率">
-<meta property="og:type" content="article">
-<meta property="og:title" content="归并排序">
-<meta property="og:url" content="http://gouyuankai.site/2014/12/19/al-mergesorted/index.html">
-<meta property="og:site_name" content="分享生活">
-<meta property="og:description" content="归并排序所需要的时间和NlgN成正比， 在小规模数组处理上(比如分到15个元素的数组了)可以考虑使用插入排序，递归是小规模的比较上过于频繁， 所以可以提高效率">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-61f7a2eb135a3370.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-557d726fadef7f15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1747081-ba1e6d993b2821d5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-10-27T09:36:11.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="归并排序">
-<meta name="twitter:description" content="归并排序所需要的时间和NlgN成正比， 在小规模数组处理上(比如分到15个元素的数组了)可以考虑使用插入排序，递归是小规模的比较上过于频繁， 所以可以提高效率">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1747081-61f7a2eb135a3370.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-  
-  
-    <link rel="icon" href="/assets/img/favicon.ico">
-  
-  <link rel="stylesheet" href="/main.css">
-  
+  <head>
+    <meta charset="utf-8">
+    
+    <title>归并排序 | Yuankai Gou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="/favicon.png">
+    
 
-</head>
+    <link rel="stylesheet" href="/css/style.css">
 
-<body>
-  <div id="container">
-    <div class="left-col">
-      <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
+    <link rel="stylesheet" href="/js/google-code-prettify/atelier-plateau-dark.css">
+
+  </head>
+
+  <body>
+
+<header>
+	<a id="logo" href="/" title="Yuankai Gou">
+	<img src="/favicon.png" alt="Yuankai Gou"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="http://gushi.li" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="Enter Key..." type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
 			
-			<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
-			
-		</a>
-
-		<hgroup>
-		  <h1 class="header-author"><a href="/">小元</a></h1>
-		</hgroup>
-
-		
-		<p class="header-subtitle">技术随笔分享</p>
-		
-
-		<nav class="header-menu">
-			<ul>
-			
-				<li><a href="/">主页</a></li>
-	        
-			</ul>
-		</nav>
-		<nav class="header-smart-menu">
-	        
-    		
-    			
-    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
-    			
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
-    			
-    			
-            
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
-    			
-    			
-            
-		</nav>
-		<nav class="header-nav">
-			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
-		        
-					<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
-		        
-			</div>
-		</nav>
-	</header>		
-</div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"><i class="icon-list"></i></div>
-  		<h1 class="header-author js-mobile-header hide">小元</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				
-					<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
-				
-			</div>
-			<hgroup>
-			  <h1 class="header-author">小元</h1>
-			</hgroup>
+				<li class="current-menu-item">
+					<a href="http://weibo.com/yumemor/" target="_blank">Weibo</a>
+				</li>
 			
-			<p class="header-subtitle">技术随笔分享</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
-			        
-				</div>
-			</nav>
-		</header>				
+		</ul>
 	</div>
 </nav>
+	
 
-      <div class="body-wrap">
-        <article id="post-al-mergesorted" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+		<figure class="top-image" data-enable=true></figure>
+	
+</div>
+
+<!--文章列表-->
+<div class="wrapper">
   
-    <h1 class="article-title" itemprop="name">
+    <!--文章-->
+<article>
+	
+  
+    <h1 class="post-title" itemprop="name">
       归并排序
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
+	<div class='post-body mb'>
+		<blockquote>
 <p>归并排序所需要的时间和NlgN成正比， 在小规模数组处理上(比如分到15个元素的数组了)可以考虑使用插入排序，递归是小规模的比较上过于频繁， 所以可以提高效率       </p>
 </blockquote>
 <a id="more"></a>
@@ -169,7 +98,53 @@
 <li>这里的运算都有同一个功能就是把两个有序的数组合成一个有序的数组，这个运算就是<strong>原地归并算法</strong>, 这个算法很简单。</li>
 </ul>
 <p>那原地归并算法是怎样实现对两个<strong>有序</strong>的数组合成一个有序的数组呢?这个很好解决。两个数组都从自己开头判断, 小的元素保存到一个备份结果数组中, 这个元素肯定是最小值， 然后在在省下的用同样方式 找出最小值保存, 依次类推。具体代码如下:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> *data, <span class="keyword">int</span> head, <span class="keyword">int</span> mid, <span class="keyword">int</span> rear)</span></span>&#123;</div><div class="line">    <span class="keyword">int</span> copydata[N];</div><div class="line">    <span class="keyword">int</span> i = head, j = mid + <span class="number">1</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = head; k &lt; N; k++) &#123;</div><div class="line">        copydata[k] = data[k];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = head; k &lt;= rear; k++) &#123;</div><div class="line">        <span class="keyword">if</span> (i &gt; mid) &#123;</div><div class="line">            data[k] = copydata[j++];</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (j &gt; rear) &#123;</div><div class="line">            data[k] = copydata[i++];</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(copydata[j] &lt; copydata[i]) &#123;</div><div class="line">            data[k] = copydata[j++];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            data[k] = copydata[i++];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line">	</div><div class="line">``` </div><div class="line">合成有序数组问题解决之后下一个问题就是划分了, 这里有递归(recursive)划分和非递归两种方式。我先介绍非递归方式。</div><div class="line"></div><div class="line"></div><div class="line">## 顶向下非递归归并排序</div><div class="line">比如对数组a(&#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">2</span>&#125;);进行归并排序需要进行: </div><div class="line"></div><div class="line">* merge(a, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>)  即 <span class="number">4</span> <span class="number">5</span></div><div class="line">* merge(a, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>)  即 <span class="number">1</span> <span class="number">2</span></div><div class="line">* merge(a, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>)  整体</div><div class="line"></div><div class="line">我们可以按规律写一个循环</div><div class="line">**code**</div><div class="line"></div><div class="line">```<span class="function">c</span></div><div class="line"><span class="keyword">void</span> <span class="title">mergesort_nonrecursive</span><span class="params">(<span class="keyword">int</span> *data, <span class="keyword">int</span> size)</span>&#123;</div><div class="line">    <span class="keyword">int</span> subsize, i;</div><div class="line">    <span class="keyword">int</span> head, mid, rear;</div><div class="line">    <span class="keyword">for</span>(subsize = <span class="number">2</span>;subsize &lt; size*<span class="number">2</span>;subsize *= <span class="number">2</span>)&#123;</div><div class="line">        </div><div class="line">        </div><div class="line">        <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; size;i += subsize)&#123;</div><div class="line">            head = i;</div><div class="line">            mid = head + subsize/<span class="number">2</span>;</div><div class="line">            rear = head + subsize;</div><div class="line">            <span class="keyword">if</span>(rear &gt;= size - <span class="number">1</span>) rear = size - <span class="number">1</span>;</div><div class="line">            merge(data, head, mid, rear);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code class="c">void merge(int *data, int head, int mid, int rear){
+    int copydata[N];
+    int i = head, j = mid + 1;
+
+    for (int k = head; k &lt; N; k++) {
+        copydata[k] = data[k];
+    }
+
+    for (int k = head; k &lt;= rear; k++) {
+        if (i &gt; mid) {
+            data[k] = copydata[j++];
+        } else if (j &gt; rear) {
+            data[k] = copydata[i++];
+        } else if(copydata[j] &lt; copydata[i]) {
+            data[k] = copydata[j++];
+        } else {
+            data[k] = copydata[i++];
+        }
+    }
+
+}
+</code></pre>
+<p>合成有序数组问题解决之后下一个问题就是划分了, 这里有递归(recursive)划分和非递归两种方式。我先介绍非递归方式。</p>
+<h2 id="顶向下非递归归并排序"><a href="#顶向下非递归归并排序" class="headerlink" title="顶向下非递归归并排序"></a>顶向下非递归归并排序</h2><p>比如对数组a({4, 5, 1, 2});进行归并排序需要进行: </p>
+<ul>
+<li>merge(a, 0, 1, 2)  即 4 5</li>
+<li>merge(a, 2, 3, 3)  即 1 2</li>
+<li>merge(a, 0, 2, 3)  整体</li>
+</ul>
+<p>我们可以按规律写一个循环<br><strong>code</strong></p>
+<pre><code class="c">void mergesort_nonrecursive(int *data, int size){
+    int subsize, i;
+    int head, mid, rear;
+    for(subsize = 2;subsize &lt; size*2;subsize *= 2){
+
+
+        for(i = 0;i &lt; size;i += subsize){
+            head = i;
+            mid = head + subsize/2;
+            rear = head + subsize;
+            if(rear &gt;= size - 1) rear = size - 1;
+            merge(data, head, mid, rear);
+        }
+
+    }    
+}
+</code></pre>
 <p>但是能不能按照其他写法依然实现3次merge， 以下是递归写法，</p>
 <h2 id="顶向下递归归并排序"><a href="#顶向下递归归并排序" class="headerlink" title="顶向下递归归并排序"></a>顶向下递归归并排序</h2><p> 算法很好理解， 但是这几行代码不怎么好理解。不知道作者怎么写出来的, 感觉很神奇。如果您有什么更好的理解， 可以留言。</p>
 <p>任然实现了这3个函数</p>
@@ -180,215 +155,129 @@
 </ul>
 <p><img src="http://upload-images.jianshu.io/upload_images/1747081-557d726fadef7f15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="执行顺序图"></p>
 <h2 id="低向上归并排序"><a href="#低向上归并排序" class="headerlink" title="低向上归并排序"></a>低向上归并排序</h2><p>这个就很好理解了， <strong>全部</strong> 2， 2 归并， 然后 4， 4 逐步往复。<br><img src="http://upload-images.jianshu.io/upload_images/1747081-ba1e6d993b2821d5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="自底向上归并"></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> auk[N];</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</div><div class="line">      auk[i] = data[i];</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> sz = <span class="number">1</span>; sz &lt; N; sz *= <span class="number">2</span>) &#123;</div><div class="line">      </div><div class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> lo = <span class="number">0</span>; lo &lt; N - sz; lo += (sz + sz)) &#123;</div><div class="line">          </div><div class="line">          <span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>, lo, lo + sz - <span class="number">1</span>, lo + sz + sz - <span class="number">1</span> &gt; N - <span class="number">1</span>?N<span class="number">-1</span>:lo + sz + sz <span class="number">-1</span>);</div><div class="line">          </div><div class="line">          merge(data, lo, lo + sz - <span class="number">1</span>, (lo + sz + sz - <span class="number">1</span> &gt; N - <span class="number">1</span>?N<span class="number">-1</span>:lo + sz + sz <span class="number">-1</span>));</div><div class="line">      &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2014/12/19/al-mergesorted/" class="archive-article-date">
-  	<time datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+<pre><code class="c">     int auk[N];
+    for (int i = 0; i &lt; N; i++) {
+        auk[i] = data[i];
+    }
+
+    for (int sz = 1; sz &lt; N; sz *= 2) {
+
+        for (int lo = 0; lo &lt; N - sz; lo += (sz + sz)) {
+
+            printf(&quot;%d %d %d\n&quot;, lo, lo + sz - 1, lo + sz + sz - 1 &gt; N - 1?N-1:lo + sz + sz -1);
+
+            merge(data, lo, lo + sz - 1, (lo + sz + sz - 1 &gt; N - 1?N-1:lo + sz + sz -1));
+        }
+    }
+</code></pre>
+
 	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2014-12-19T06:48:00.000Z" itemprop="datePublished">2014-12-19</time>
+	</div>
 </article>
 
-  
-<nav id="article-nav">
-  
-    <a href="/2014/12/19/al-quicksort/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          快速排序
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2014/12/19/SDWebImage源码-GIF图片显示解读/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SDWebImage源码阅读之UIImage + GIF</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
+<!--评论-->
 
+	
+<div class="ds-thread" data-thread-key="al-mergesorted" data-title="归并排序" data-url="http://yoursite.com/2014/12/19/al-mergesorted/"></div>
+<script type="text/javascript">
 
-
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-	    <a class="jiathis_button_twitter"></a>
-	    <a class="jiathis_button_plus"></a> 
-	    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-
-
-
-
-
-
-      </div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2017 小元
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
-    <script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: false,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: true,
-		root: "/",
-		innerArchive: true
-	}
+var duoshuoQuery = {short_name:"yumemor"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
 </script>
 
-<script src="/./main.js"></script>
 
-
-    
-<div class="tools-col">
-  <ul class="btn-wrap">
-    
-      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
-    
-    
-      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
-    
-    
-    
-      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
-    
-  </ul>
-  <div class="tools-wrap">
-    
-    	<section class="tools-section tools-section-all chose">
-    	</section>
-    
-
-    
-    	<section class="tools-section tools-section-tag">
-    			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/SDWebImage/" style="font-size: 10px;">SDWebImage</a> <a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/django/" style="font-size: 16.67px;">django</a> <a href="/tags/flask/" style="font-size: 13.33px;">flask</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/js/" style="font-size: 13.33px;">js</a> <a href="/tags/mongodb/" style="font-size: 16.67px;">mongodb</a> <a href="/tags/oop/" style="font-size: 10px;">oop</a> <a href="/tags/pack/" style="font-size: 10px;">pack</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/tornado/" style="font-size: 10px;">tornado</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/破解/" style="font-size: 10px;">破解</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a>
-    			</div>
-    	</section>
-    
-
-    
-
-    
-    	<section class="tools-section tools-section-me">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;住在南方，北方生活&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚程序猿&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
-  	  	
-    	</section>
-    
-  </div>
   
 </div>
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
 
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
 
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
+  
 
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
 
-            <div class="pswp__top-bar">
+  <div class="wrapper"></div>
 
-                <!--  Controls are self-explanatory. Order can be changed. -->
 
-                <div class="pswp__counter"></div>
 
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
 
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://oct8d1mqf.bkt.clouddn.com/2016-10-17-15%3A42%3A28.jpg' alt='小元'>
+					<div class="media__body">
+						<h4>Yuankai Gou</h4>
+						<p class='site-description'>水深流静</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+							
+							<li>
+				        		<a href="http://weibo.com/u/5706883203" target="_blank">
+				        			
+				        				<i class="iconfont icon-weibo"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+							
+							<li>
+				        		<a href="https://github.com/yuankaigou" target="_blank">
+				        			
+				        				<i class="iconfont icon-github"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-  </div>
-</body>
+
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		
+			<span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
+		
+		<span>Theme by <a href="http://github.com/yumemor">Yumemor</a>. Powered by <a href="http://hexo.io">Hexo</a></span>
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+	<script src="/js/lib.js"></script>
+	<script src="/js/google-code-prettify/prettify.js"></script>
+	<script src="/js/module.js"></script>
+	<script src="/js/script.js"></script>
+	
+		<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function(){
+	 		$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+   			prettyPrint();
+		});
+	</script>
+	</body>
 </html>

@@ -1,411 +1,436 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://gouyuankai.site">
-  <title>mongodb的聚合操作 | 分享生活</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="mongodb的数据库聚合操作">
-<meta property="og:type" content="article">
-<meta property="og:title" content="mongodb的聚合操作">
-<meta property="og:url" content="http://gouyuankai.site/2014/12/19/mongodb-aggregate/index.html">
-<meta property="og:site_name" content="分享生活">
-<meta property="og:description" content="mongodb的数据库聚合操作">
-<meta property="og:updated_time" content="2016-10-27T09:43:50.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mongodb的聚合操作">
-<meta name="twitter:description" content="mongodb的数据库聚合操作">
-  
-  
-    <link rel="icon" href="/assets/img/favicon.ico">
-  
-  <link rel="stylesheet" href="/main.css">
-  
+  <head>
+    <meta charset="utf-8">
+    
+    <title>mongodb的聚合操作 | Yuankai Gou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="/favicon.png">
+    
 
-</head>
+    <link rel="stylesheet" href="/css/style.css">
 
-<body>
-  <div id="container">
-    <div class="left-col">
-      <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
+    <link rel="stylesheet" href="/js/google-code-prettify/atelier-plateau-dark.css">
+
+  </head>
+
+  <body>
+
+<header>
+	<a id="logo" href="/" title="Yuankai Gou">
+	<img src="/favicon.png" alt="Yuankai Gou"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="http://gushi.li" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="Enter Key..." type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
 			
-			<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
-			
-		</a>
-
-		<hgroup>
-		  <h1 class="header-author"><a href="/">小元</a></h1>
-		</hgroup>
-
-		
-		<p class="header-subtitle">技术随笔分享</p>
-		
-
-		<nav class="header-menu">
-			<ul>
-			
-				<li><a href="/">主页</a></li>
-	        
-			</ul>
-		</nav>
-		<nav class="header-smart-menu">
-	        
-    		
-    			
-    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
-    			
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
-    			
-    			
-            
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
-    			
-    			
-            
-		</nav>
-		<nav class="header-nav">
-			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
-		        
-					<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
-		        
-			</div>
-		</nav>
-	</header>		
-</div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"><i class="icon-list"></i></div>
-  		<h1 class="header-author js-mobile-header hide">小元</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				
-					<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
-				
-			</div>
-			<hgroup>
-			  <h1 class="header-author">小元</h1>
-			</hgroup>
+				<li class="current-menu-item">
+					<a href="http://weibo.com/yumemor/" target="_blank">Weibo</a>
+				</li>
 			
-			<p class="header-subtitle">技术随笔分享</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
-			        
-				</div>
-			</nav>
-		</header>				
+		</ul>
 	</div>
 </nav>
+	
 
-      <div class="body-wrap">
-        <article id="post-mongodb-aggregate" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+		<figure class="top-image" data-enable=true></figure>
+	
+</div>
+
+<!--文章列表-->
+<div class="wrapper">
   
-    <h1 class="article-title" itemprop="name">
+    <!--文章-->
+<article>
+	
+  
+    <h1 class="post-title" itemprop="name">
       mongodb的聚合操作
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
+	<div class='post-body mb'>
+		<blockquote>
 <p>mongodb的数据库聚合操作<br><a id="more"></a></p>
 </blockquote>
 <h2 id="数据库基础"><a href="#数据库基础" class="headerlink" title="数据库基础"></a>数据库基础</h2><hr>
 <p>原始数据 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">db.mycol.insert([</div><div class="line">&#123;</div><div class="line">   title: &apos;MongoDB Overview&apos;, </div><div class="line">   description: &apos;MongoDB is no sql database&apos;,</div><div class="line">   by_user: &apos;w3cschool.cc&apos;,</div><div class="line">   url: &apos;http://www.w3cschool.cc&apos;,</div><div class="line">   tags: [&apos;mongodb&apos;, &apos;database&apos;, &apos;NoSQL&apos;],</div><div class="line">   likes: 100</div><div class="line">&#125;,</div><div class="line">&#123;</div><div class="line">   title: &apos;NoSQL Overview&apos;, </div><div class="line">   description: &apos;No sql database is very fast&apos;,</div><div class="line">   by_user: &apos;w3cschool.cc&apos;,</div><div class="line">   url: &apos;http://www.w3cschool.cc&apos;,</div><div class="line">   tags: [&apos;mongodb&apos;, &apos;database&apos;, &apos;NoSQL&apos;],</div><div class="line">   likes: 10</div><div class="line">&#125;,</div><div class="line">&#123;</div><div class="line">   title: &apos;Neo4j Overview&apos;, </div><div class="line">   description: &apos;Neo4j is no sql database&apos;,</div><div class="line">   by_user: &apos;Neo4j&apos;,</div><div class="line">   url: &apos;http://www.neo4j.com&apos;,</div><div class="line">   tags: [&apos;neo4j&apos;, &apos;database&apos;, &apos;NoSQL&apos;],</div><div class="line">   likes: 750</div><div class="line">&#125;])</div></pre></td></tr></table></figure>
-<p>把by_user字段的数据分到一个组，统计每个组的记录个数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt; db.mycol.aggregate(</div><div class="line">[</div><div class="line">  &#123;</div><div class="line">    $group: &#123;</div><div class="line">      _id: &quot;$by_user&quot;,</div><div class="line">      num_tutorial: &#123;</div><div class="line">        $sum: 1</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">]</div></pre></td></tr></table></figure>
-<p>求出每个作者的好评数 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; db.mycol.aggregate([&#123;$group:&#123;_id :&apos;$by_user&apos;, count:&#123;$sum:&apos;$likes&apos;&#125;&#125;&#125;])</div></pre></td></tr></table></figure>
-<p>获取表中所有好评数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mycol.aggregate([&#123;$group:&#123;_id :null, count:&#123;$sum:&apos;$likes&apos;&#125;&#125;&#125;])</div><div class="line">&#123; &quot;_id&quot; : null, &quot;count&quot; : 860 &#125;</div></pre></td></tr></table></figure>
-<p>求出所有记录的平均好评数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; db.mycol.aggregate([&#123;$group:&#123;_id :null, avg:&#123;$avg:&apos;$likes&apos;&#125;&#125;&#125;])</div><div class="line">&#123; &quot;_id&quot; : null, &quot;avg&quot; : 286.6666666666667 &#125;</div></pre></td></tr></table></figure>
-<p>求出每个作者的平均好评</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt; db.mycol.aggregate([&#123;$group:&#123;_id:&apos;$by_user&apos;, avg_likes:&#123;$avg:&apos;$likes&apos;&#125;&#125;&#125;])</div><div class="line">&#123; &quot;_id&quot; : &quot;Neo4j&quot;, &quot;avg_likes&quot; : 750 &#125;</div><div class="line">&#123; &quot;_id&quot; : &quot;w3cschool.cc&quot;, &quot;avg_likes&quot; : 55 &#125;</div><div class="line">``` </div><div class="line"></div><div class="line">找出最差评分的作者</div></pre></td></tr></table></figure>
-<blockquote>
-<p>db.mycol.aggregate({$group:{_id:null, min_like:{$min:’$likes’}}})<br>{ “_id” : null, “min_like” : 10 }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">分组后把每组的url添加到数组中</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>db.mycol.aggregate([{$group : {_id : “$by_user”, url : {$push: “$url”}}}])<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## $project</div><div class="line"></div><div class="line">修改输入文档的结构。可以用来重命名、增加或删除字段(域)，也可以用于创建计算结果以及嵌套文档。</div><div class="line"></div><div class="line">只显示相关字段 相当于投影</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>db.books.aggregate({$project:{ title:1,author:1,_id:0}})<br>{ “title” : “abc123”, “author” : { “last” : “zzz”, “first” : “aaa” } }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">选择字典中的键 控制显影</div></pre></td></tr></table></figure></p>
-<p>db.books.aggregate({$project:{ title:1,_id:0,’author.last’:1}})<br>{ “title” : “abc123”, “author” : { “last” : “zzz” } }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">字符串可以部分截取</div></pre></td></tr></table></figure></p>
-<p>db.books.aggregate({$project:{_id:0,title:1,authorfisrtName:’$author.first’,isbn:{$substr:[‘$isbn’,1,3]}}})<br>{ “title” : “abc123”, “isbn” : “001”, “authorfisrtName” : “aaa” }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">---</div><div class="line"></div><div class="line">## $match</div><div class="line"> </div><div class="line"> </div><div class="line">原始数据</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>db.articles.insert([<br>{ “_id” : 1, “author” : “dave”, “score” : 80, “views” : 100 },<br>{ “_id” : 2, “author” : “dave”, “score” : 85, “views” : 521 },<br>{ “_id” : 3, “author” : “ahn”, “score” : 60, “views” : 1000 },<br>{ “_id” : 4, “author” : “li”, “score” : 55, “views” : 5000 },<br>{ “_id” : 5, “author” : “annT”, “score” : 60, “views” : 50 },<br>{ “_id” : 6, “author” : “li”, “score” : 94, “views” : 999 },<br>{ “_id” : 7, “author” : “ty”, “score” : 95, “views” : 1000 }<br>])<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">找出名字是dave的记录</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>db.articles.aggregate([{$match:{‘author’:’dave’}}])<br>{ “_id” : 1, “author” : “dave”, “score” : 80, “views” : 100 }<br>{ “_id” : 2, “author” : “dave”, “score” : 85, “views” : 521 }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">找出 70-90的数据或者1000 的数据   再统计个数</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>db.articles.aggregate(<br>[<br>  {<br>    $match: {<br>      $or: [<br>        {<br>          score: {<br>            $gt: 70,<br>            $lt: 90<br>          }<br>        },<br>        {<br>          views: {<br>            $gte: 1000<br>          }<br>        }<br>      ]<br>    }<br>  },<br>  {<br>    $group: {<br>      _id: null,<br>      count: {<br>        $sum: 1<br>      }<br>    }<br>  }<br>]<br> )<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">---</div><div class="line"></div><div class="line"></div><div class="line">## group</div><div class="line"></div><div class="line">原始数据</div></pre></td></tr></table></figure></p>
-<p>db.sales.aggregate(<br>   [<br>      {<br>        $group : {<br>           _id : { month: { $month: “$date” }, day: { $dayOfMonth: “$date” }, year: { $year: “$date” } },<br>           averageQuantity: { $avg: “$quantity” },<br>           count: { $sum: 1 }<br>        }<br>      }<br>   ]<br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">按照年月日分组 统计每个分组的数 平均数量</div></pre></td></tr></table></figure></p>
-<p>db.sales.aggregate(<br>   [<br>      {<br>        $group : {<br>           _id : { month: { $month: “$date” }, day: { $dayOfMonth: “$date” }, year: { $year: “$date” } },<br>           averageQuantity: { $avg: “$quantity” },<br>           count: { $sum: 1 }<br>        }<br>      }<br>   ]<br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">如果是`_id = null` 全部数据都会到组中</div></pre></td></tr></table></figure></p>
-<p>db.sales.aggregate(<br>   [<br>      {<br>        $group : {<br>           _id : null,<br>           totalPrice: { $sum: { $multiply: [ “$price”, “$quantity” ] } },<br>           averageQuantity: { $avg: “$quantity” },<br>           count: { $sum: 1 }<br>        }<br>      }<br>   ]<br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">相当于找出item去重</div></pre></td></tr></table></figure></p>
-<p>db.sales.aggregate( [ { $group : { _id : “$item” } } ] )<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">分类作者 找出书籍</div></pre></td></tr></table></figure></p>
-<p>db.books.aggregate(<br>   [<br>     { $group : { _id : “$author”, books: { $push: “$title” } } }<br>   ]<br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## unwind</div><div class="line"></div><div class="line">拆分数组</div></pre></td></tr></table></figure></p>
-<p>db.inventory.insert(<br>{ “_id” : 1, “item” : “ABC1”, sizes: [ “S”, “M”, “L”] }<br>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>db.inventory.aggregate( [<br>   { $unwind: { path: “$sizes”, preserveNullAndEmptyArrays: true } }<br>] )<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>{ “_id” : 1, “item” : “ABC”, “sizes” : “S” }<br>{ “_id” : 1, “item” : “ABC”, “sizes” : “M” }<br>{ “_id” : 1, “item” : “ABC”, “sizes” : “L” }<br>{ “_id” : 2, “item” : “EFG” }<br>{ “_id” : 3, “item” : “IJK”, “sizes” : “M” }<br>{ “_id” : 4, “item” : “LMN” }<br>{ “_id” : 5, “item” : “XYZ”, “sizes” : null }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">`includeArrayIndex: &quot;arrayIndex&quot; `可以为每个数组中的数据添加 在数组中的下标</div><div class="line"></div><div class="line">`preserveNullAndEmptyArrays: true` 有[],null,没有字典的都会显示  一般时候[]和没有的不显示</div><div class="line"></div><div class="line"></div><div class="line">## lookup表链接</div></pre></td></tr></table></figure></p>
-<p>{<br>   $lookup:<br>     {<br>       from: <collection to="" join="">,<br>       localField: <field from="" the="" input="" documents="">,<br>       foreignField: <field from="" the="" documents="" of="" "from"="" collection="">,<br>       as: <output array="" field=""><br>     }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">from链接那个表,local表中那个字段，foreign参考表字段。 as 放到一个数组中</div></pre></td></tr></table></figure></output></field></field></collection></p>
-<p>db.orders.insert([<br>{ “_id” : 1, “item” : “abc”, “price” : 12, “quantity” : 2 },<br>{ “_id” : 2, “item” : “jkl”, “price” : 20, “quantity” : 1 },<br>{ “_id” : 3  }<br>])<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>db.inventory.insert([<br>{ “_id” : 1, “sku” : “abc”, description: “product 1”, “instock” : 120 },<br>{ “_id” : 2, “sku” : “def”, description: “product 2”, “instock” : 80 },<br>{ “_id” : 3, “sku” : “ijk”, description: “product 3”, “instock” : 60 },<br>{ “_id” : 4, “sku” : “jkl”, description: “product 4”, “instock” : 70 },<br>{ “_id” : 5, “sku”: null, description: “Incomplete” },<br>{ “_id” : 6 }<br>])<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<p>db.orders.aggregate([<br>    {<br>      $lookup:<br>        {<br>          from: “inventory”,<br>          localField: “item”,<br>          foreignField: “sku”,<br>          as: “inventory_docs”<br>        }<br>   }<br>]).pretty()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">结果 是匹配到的放到数组中</div></pre></td></tr></table></figure></p>
-<p>{<br>  “_id” : 1,<br>   “item” : “abc”,<br>  “price” : 12,<br>  “quantity” : 2,<br>  “inventory_docs” : [<br>    { “_id” : 1, “sku” : “abc”, description: “product 1”, “instock” : 120 }<br>  ]<br>}<br>{<br>  “_id” : 2,<br>  “item” : “jkl”,<br>  “price” : 20,<br>  “quantity” : 1,<br>  “inventory_docs” : [<br>    { “_id” : 4, “sku” : “jkl”, “description” : “product 4”, “instock” : 70 }<br>  ]<br>}<br>{<br>  “_id” : 3,<br>  “inventory_docs” : [<br>    { “_id” : 5, “sku” : null, “description” : “Incomplete” },<br>    { “_id” : 6 }<br>  ]<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">## mongodump--数据库的出和导入</div><div class="line"></div><div class="line">导出一个数据库 就是备份</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>mongodump -h dbhost -d dbname -o dbdirectory<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">导出一个集合</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>python@ubuntu:/home/mongodump$ sudo mongodump -h 192.168.17.129:27017 -d example -c bat_books  -o /home/mongodump/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">恢复数据库</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>mongorestore -h dbhost -d dbname –dir dbdirectory<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">导入一个集合</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>python@ubuntu:/home/mongodump$ mongorestore -h 192.168.17.129:27017 -d example_restore -c books_restore  –dir /home/mongodump/example/bat_books.bson<br>```</p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2014/12/19/mongodb-aggregate/" class="archive-article-date">
-  	<time datetime="2014-12-19T05:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2014-12-19</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li></ul>
+<pre><code>db.mycol.insert([
+{
+   title: &#39;MongoDB Overview&#39;, 
+   description: &#39;MongoDB is no sql database&#39;,
+   by_user: &#39;w3cschool.cc&#39;,
+   url: &#39;http://www.w3cschool.cc&#39;,
+   tags: [&#39;mongodb&#39;, &#39;database&#39;, &#39;NoSQL&#39;],
+   likes: 100
+},
+{
+   title: &#39;NoSQL Overview&#39;, 
+   description: &#39;No sql database is very fast&#39;,
+   by_user: &#39;w3cschool.cc&#39;,
+   url: &#39;http://www.w3cschool.cc&#39;,
+   tags: [&#39;mongodb&#39;, &#39;database&#39;, &#39;NoSQL&#39;],
+   likes: 10
+},
+{
+   title: &#39;Neo4j Overview&#39;, 
+   description: &#39;Neo4j is no sql database&#39;,
+   by_user: &#39;Neo4j&#39;,
+   url: &#39;http://www.neo4j.com&#39;,
+   tags: [&#39;neo4j&#39;, &#39;database&#39;, &#39;NoSQL&#39;],
+   likes: 750
+}])
+</code></pre><p>把by_user字段的数据分到一个组，统计每个组的记录个数</p>
+<pre><code>&gt; db.mycol.aggregate(
+[
+  {
+    $group: {
+      _id: &quot;$by_user&quot;,
+      num_tutorial: {
+        $sum: 1
+      }
+    }
+  }
+]
+</code></pre><p>求出每个作者的好评数 </p>
+<pre><code>&gt; db.mycol.aggregate([{$group:{_id :&#39;$by_user&#39;, count:{$sum:&#39;$likes&#39;}}}])
+</code></pre><p>获取表中所有好评数</p>
+<pre><code>&gt; db.mycol.aggregate([{$group:{_id :null, count:{$sum:&#39;$likes&#39;}}}])
+{ &quot;_id&quot; : null, &quot;count&quot; : 860 }
+</code></pre><p>求出所有记录的平均好评数</p>
+<pre><code>&gt; db.mycol.aggregate([{$group:{_id :null, avg:{$avg:&#39;$likes&#39;}}}])
+{ &quot;_id&quot; : null, &quot;avg&quot; : 286.6666666666667 }
+</code></pre><p>求出每个作者的平均好评</p>
+<pre><code>&gt; db.mycol.aggregate([{$group:{_id:&#39;$by_user&#39;, avg_likes:{$avg:&#39;$likes&#39;}}}])
+{ &quot;_id&quot; : &quot;Neo4j&quot;, &quot;avg_likes&quot; : 750 }
+{ &quot;_id&quot; : &quot;w3cschool.cc&quot;, &quot;avg_likes&quot; : 55 }
+</code></pre><p>找出最差评分的作者</p>
+<pre><code>&gt; db.mycol.aggregate({$group:{_id:null, min_like:{$min:&#39;$likes&#39;}}})
+{ &quot;_id&quot; : null, &quot;min_like&quot; : 10 }
+</code></pre><p>分组后把每组的url添加到数组中 </p>
+<pre><code>db.mycol.aggregate([{$group : {_id : &quot;$by_user&quot;, url : {$push: &quot;$url&quot;}}}])
+</code></pre><h2 id="project"><a href="#project" class="headerlink" title="$project"></a>$project</h2><p>修改输入文档的结构。可以用来重命名、增加或删除字段(域)，也可以用于创建计算结果以及嵌套文档。</p>
+<p>只显示相关字段 相当于投影</p>
+<pre><code>&gt; db.books.aggregate({$project:{ title:1,author:1,_id:0}})
+{ &quot;title&quot; : &quot;abc123&quot;, &quot;author&quot; : { &quot;last&quot; : &quot;zzz&quot;, &quot;first&quot; : &quot;aaa&quot; } }
+</code></pre><p>选择字典中的键 控制显影</p>
+<pre><code>&gt; db.books.aggregate({$project:{ title:1,_id:0,&#39;author.last&#39;:1}})
+{ &quot;title&quot; : &quot;abc123&quot;, &quot;author&quot; : { &quot;last&quot; : &quot;zzz&quot; } }
+</code></pre><p>字符串可以部分截取</p>
+<pre><code>&gt; db.books.aggregate({$project:{_id:0,title:1,authorfisrtName:&#39;$author.first&#39;,isbn:{$substr:[&#39;$isbn&#39;,1,3]}}})
+{ &quot;title&quot; : &quot;abc123&quot;, &quot;isbn&quot; : &quot;001&quot;, &quot;authorfisrtName&quot; : &quot;aaa&quot; }
+</code></pre><hr>
+<h2 id="match"><a href="#match" class="headerlink" title="$match"></a>$match</h2><p>原始数据 </p>
+<pre><code>db.articles.insert([
+{ &quot;_id&quot; : 1, &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 80, &quot;views&quot; : 100 },
+{ &quot;_id&quot; : 2, &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 85, &quot;views&quot; : 521 },
+{ &quot;_id&quot; : 3, &quot;author&quot; : &quot;ahn&quot;, &quot;score&quot; : 60, &quot;views&quot; : 1000 },
+{ &quot;_id&quot; : 4, &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 55, &quot;views&quot; : 5000 },
+{ &quot;_id&quot; : 5, &quot;author&quot; : &quot;annT&quot;, &quot;score&quot; : 60, &quot;views&quot; : 50 },
+{ &quot;_id&quot; : 6, &quot;author&quot; : &quot;li&quot;, &quot;score&quot; : 94, &quot;views&quot; : 999 },
+{ &quot;_id&quot; : 7, &quot;author&quot; : &quot;ty&quot;, &quot;score&quot; : 95, &quot;views&quot; : 1000 }
+])
+</code></pre><p>找出名字是dave的记录</p>
+<pre><code>&gt; db.articles.aggregate([{$match:{&#39;author&#39;:&#39;dave&#39;}}])
+{ &quot;_id&quot; : 1, &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 80, &quot;views&quot; : 100 }
+{ &quot;_id&quot; : 2, &quot;author&quot; : &quot;dave&quot;, &quot;score&quot; : 85, &quot;views&quot; : 521 }
+</code></pre><p>找出 70-90的数据或者1000 的数据   再统计个数</p>
+<pre><code>db.articles.aggregate(
+[
+  {
+    $match: {
+      $or: [
+        {
+          score: {
+            $gt: 70,
+            $lt: 90
+          }
+        },
+        {
+          views: {
+            $gte: 1000
+          }
+        }
+      ]
+    }
+  },
+  {
+    $group: {
+      _id: null,
+      count: {
+        $sum: 1
+      }
+    }
+  }
+]
+ )
+</code></pre><hr>
+<h2 id="group"><a href="#group" class="headerlink" title="group"></a>group</h2><p>原始数据</p>
+<pre><code>db.sales.aggregate(
+   [
+      {
+        $group : {
+           _id : { month: { $month: &quot;$date&quot; }, day: { $dayOfMonth: &quot;$date&quot; }, year: { $year: &quot;$date&quot; } },
+           averageQuantity: { $avg: &quot;$quantity&quot; },
+           count: { $sum: 1 }
+        }
+      }
+   ]
+)
+</code></pre><p>按照年月日分组 统计每个分组的数 平均数量</p>
+<pre><code>db.sales.aggregate(
+   [
+      {
+        $group : {
+           _id : { month: { $month: &quot;$date&quot; }, day: { $dayOfMonth: &quot;$date&quot; }, year: { $year: &quot;$date&quot; } },
+           averageQuantity: { $avg: &quot;$quantity&quot; },
+           count: { $sum: 1 }
+        }
+      }
+   ]
+)
+</code></pre><p>如果是<code>_id = null</code> 全部数据都会到组中</p>
+<pre><code>db.sales.aggregate(
+   [
+      {
+        $group : {
+           _id : null,
+           totalPrice: { $sum: { $multiply: [ &quot;$price&quot;, &quot;$quantity&quot; ] } },
+           averageQuantity: { $avg: &quot;$quantity&quot; },
+           count: { $sum: 1 }
+        }
+      }
+   ]
+)
+</code></pre><p>相当于找出item去重</p>
+<pre><code>db.sales.aggregate( [ { $group : { _id : &quot;$item&quot; } } ] )
+</code></pre><p>分类作者 找出书籍</p>
+<pre><code>db.books.aggregate(
+   [
+     { $group : { _id : &quot;$author&quot;, books: { $push: &quot;$title&quot; } } }
+   ]
+)
+</code></pre><h2 id="unwind"><a href="#unwind" class="headerlink" title="unwind"></a>unwind</h2><p>拆分数组</p>
+<pre><code>db.inventory.insert(
+{ &quot;_id&quot; : 1, &quot;item&quot; : &quot;ABC1&quot;, sizes: [ &quot;S&quot;, &quot;M&quot;, &quot;L&quot;] }
+)
+</code></pre><pre><code>db.inventory.aggregate( [
+   { $unwind: { path: &quot;$sizes&quot;, preserveNullAndEmptyArrays: true } }
+] )
+</code></pre><pre><code>{ &quot;_id&quot; : 1, &quot;item&quot; : &quot;ABC&quot;, &quot;sizes&quot; : &quot;S&quot; }
+{ &quot;_id&quot; : 1, &quot;item&quot; : &quot;ABC&quot;, &quot;sizes&quot; : &quot;M&quot; }
+{ &quot;_id&quot; : 1, &quot;item&quot; : &quot;ABC&quot;, &quot;sizes&quot; : &quot;L&quot; }
+{ &quot;_id&quot; : 2, &quot;item&quot; : &quot;EFG&quot; }
+{ &quot;_id&quot; : 3, &quot;item&quot; : &quot;IJK&quot;, &quot;sizes&quot; : &quot;M&quot; }
+{ &quot;_id&quot; : 4, &quot;item&quot; : &quot;LMN&quot; }
+{ &quot;_id&quot; : 5, &quot;item&quot; : &quot;XYZ&quot;, &quot;sizes&quot; : null }
+</code></pre><p><code>includeArrayIndex: &quot;arrayIndex&quot;</code>可以为每个数组中的数据添加 在数组中的下标</p>
+<p><code>preserveNullAndEmptyArrays: true</code> 有[],null,没有字典的都会显示  一般时候[]和没有的不显示</p>
+<h2 id="lookup表链接"><a href="#lookup表链接" class="headerlink" title="lookup表链接"></a>lookup表链接</h2><pre><code>{
+   $lookup:
+     {
+       from: &lt;collection to join&gt;,
+       localField: &lt;field from the input documents&gt;,
+       foreignField: &lt;field from the documents of the &quot;from&quot; collection&gt;,
+       as: &lt;output array field&gt;
+     }
+}
+</code></pre><p>from链接那个表,local表中那个字段，foreign参考表字段。 as 放到一个数组中</p>
+<pre><code>db.orders.insert([
+{ &quot;_id&quot; : 1, &quot;item&quot; : &quot;abc&quot;, &quot;price&quot; : 12, &quot;quantity&quot; : 2 },
+{ &quot;_id&quot; : 2, &quot;item&quot; : &quot;jkl&quot;, &quot;price&quot; : 20, &quot;quantity&quot; : 1 },
+{ &quot;_id&quot; : 3  }
+])
+</code></pre><pre><code>db.inventory.insert([
+{ &quot;_id&quot; : 1, &quot;sku&quot; : &quot;abc&quot;, description: &quot;product 1&quot;, &quot;instock&quot; : 120 },
+{ &quot;_id&quot; : 2, &quot;sku&quot; : &quot;def&quot;, description: &quot;product 2&quot;, &quot;instock&quot; : 80 },
+{ &quot;_id&quot; : 3, &quot;sku&quot; : &quot;ijk&quot;, description: &quot;product 3&quot;, &quot;instock&quot; : 60 },
+{ &quot;_id&quot; : 4, &quot;sku&quot; : &quot;jkl&quot;, description: &quot;product 4&quot;, &quot;instock&quot; : 70 },
+{ &quot;_id&quot; : 5, &quot;sku&quot;: null, description: &quot;Incomplete&quot; },
+{ &quot;_id&quot; : 6 }
+])
+</code></pre><pre><code>db.orders.aggregate([
+    {
+      $lookup:
+        {
+          from: &quot;inventory&quot;,
+          localField: &quot;item&quot;,
+          foreignField: &quot;sku&quot;,
+          as: &quot;inventory_docs&quot;
+        }
+   }
+]).pretty()
+</code></pre><p>结果 是匹配到的放到数组中</p>
+<pre><code>{
+  &quot;_id&quot; : 1,
+   &quot;item&quot; : &quot;abc&quot;,
+  &quot;price&quot; : 12,
+  &quot;quantity&quot; : 2,
+  &quot;inventory_docs&quot; : [
+    { &quot;_id&quot; : 1, &quot;sku&quot; : &quot;abc&quot;, description: &quot;product 1&quot;, &quot;instock&quot; : 120 }
+  ]
+}
+{
+  &quot;_id&quot; : 2,
+  &quot;item&quot; : &quot;jkl&quot;,
+  &quot;price&quot; : 20,
+  &quot;quantity&quot; : 1,
+  &quot;inventory_docs&quot; : [
+    { &quot;_id&quot; : 4, &quot;sku&quot; : &quot;jkl&quot;, &quot;description&quot; : &quot;product 4&quot;, &quot;instock&quot; : 70 }
+  ]
+}
+{
+  &quot;_id&quot; : 3,
+  &quot;inventory_docs&quot; : [
+    { &quot;_id&quot; : 5, &quot;sku&quot; : null, &quot;description&quot; : &quot;Incomplete&quot; },
+    { &quot;_id&quot; : 6 }
+  ]
+}
+</code></pre><h2 id="mongodump–数据库的出和导入"><a href="#mongodump–数据库的出和导入" class="headerlink" title="mongodump–数据库的出和导入"></a>mongodump–数据库的出和导入</h2><p>导出一个数据库 就是备份</p>
+<pre><code>&gt;mongodump -h dbhost -d dbname -o dbdirectory
+</code></pre><p>导出一个集合</p>
+<pre><code>python@ubuntu:/home/mongodump$ sudo mongodump -h 192.168.17.129:27017 -d example -c bat_books  -o /home/mongodump/
+</code></pre><p>恢复数据库</p>
+<pre><code>&gt;mongorestore -h dbhost -d dbname --dir dbdirectory
+</code></pre><p>导入一个集合</p>
+<pre><code>python@ubuntu:/home/mongodump$ mongorestore -h 192.168.17.129:27017 -d example_restore -c books_restore  --dir /home/mongodump/example/bat_books.bson
+</code></pre>
 	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2014-12-19T05:48:00.000Z" itemprop="datePublished">2014-12-19</time>
+	</div>
 </article>
 
-  
-<nav id="article-nav">
-  
-    <a href="/2014/12/19/soft-macps/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          mac版ps破解字体替换
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2014/12/19/js-oop/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">js面向对象</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
+<!--评论-->
 
+	
+<div class="ds-thread" data-thread-key="mongodb-aggregate" data-title="mongodb的聚合操作" data-url="http://yoursite.com/2014/12/19/mongodb-aggregate/"></div>
+<script type="text/javascript">
 
-
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-	    <a class="jiathis_button_twitter"></a>
-	    <a class="jiathis_button_plus"></a> 
-	    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-
-
-
-
-
-
-      </div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2017 小元
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
-    <script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: false,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: true,
-		root: "/",
-		innerArchive: true
-	}
+var duoshuoQuery = {short_name:"yumemor"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
 </script>
 
-<script src="/./main.js"></script>
 
-
-    
-<div class="tools-col">
-  <ul class="btn-wrap">
-    
-      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
-    
-    
-      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
-    
-    
-    
-      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
-    
-  </ul>
-  <div class="tools-wrap">
-    
-    	<section class="tools-section tools-section-all chose">
-    	</section>
-    
-
-    
-    	<section class="tools-section tools-section-tag">
-    			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/SDWebImage/" style="font-size: 10px;">SDWebImage</a> <a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/django/" style="font-size: 16.67px;">django</a> <a href="/tags/flask/" style="font-size: 13.33px;">flask</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/js/" style="font-size: 13.33px;">js</a> <a href="/tags/mongodb/" style="font-size: 16.67px;">mongodb</a> <a href="/tags/oop/" style="font-size: 10px;">oop</a> <a href="/tags/pack/" style="font-size: 10px;">pack</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/tornado/" style="font-size: 10px;">tornado</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/破解/" style="font-size: 10px;">破解</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a>
-    			</div>
-    	</section>
-    
-
-    
-
-    
-    	<section class="tools-section tools-section-me">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;住在南方，北方生活&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚程序猿&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
-  	  	
-    	</section>
-    
-  </div>
   
 </div>
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
 
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
 
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
+  
 
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
 
-            <div class="pswp__top-bar">
+  <div class="wrapper"></div>
 
-                <!--  Controls are self-explanatory. Order can be changed. -->
 
-                <div class="pswp__counter"></div>
 
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
 
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://oct8d1mqf.bkt.clouddn.com/2016-10-17-15%3A42%3A28.jpg' alt='小元'>
+					<div class="media__body">
+						<h4>Yuankai Gou</h4>
+						<p class='site-description'>水深流静</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+							
+							<li>
+				        		<a href="http://weibo.com/u/5706883203" target="_blank">
+				        			
+				        				<i class="iconfont icon-weibo"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+							
+							<li>
+				        		<a href="https://github.com/yuankaigou" target="_blank">
+				        			
+				        				<i class="iconfont icon-github"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-  </div>
-</body>
+
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		
+			<span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
+		
+		<span>Theme by <a href="http://github.com/yumemor">Yumemor</a>. Powered by <a href="http://hexo.io">Hexo</a></span>
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+	<script src="/js/lib.js"></script>
+	<script src="/js/google-code-prettify/prettify.js"></script>
+	<script src="/js/module.js"></script>
+	<script src="/js/script.js"></script>
+	
+		<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function(){
+	 		$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+   			prettyPrint();
+		});
+	</script>
+	</body>
 </html>

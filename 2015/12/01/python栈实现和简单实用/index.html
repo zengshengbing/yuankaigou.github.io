@@ -1,154 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://gouyuankai.site">
-  <title>python栈实现和案例 | 分享生活</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="python栈实现和案例栈是一种常用的数据结构，我们常说栈是先进后出的特点，正式这个特点，我们可以利用其记录很多状态，并返回到原来的状态。 本文以python实现， 然后在举例说明一些简单的应用。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="python栈实现和案例">
-<meta property="og:url" content="http://gouyuankai.site/2015/12/01/python栈实现和简单实用/index.html">
-<meta property="og:site_name" content="分享生活">
-<meta property="og:description" content="python栈实现和案例栈是一种常用的数据结构，我们常说栈是先进后出的特点，正式这个特点，我们可以利用其记录很多状态，并返回到原来的状态。 本文以python实现， 然后在举例说明一些简单的应用。">
-<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/12/1357972240_7021.png">
-<meta property="og:updated_time" content="2017-03-26T07:39:27.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python栈实现和案例">
-<meta name="twitter:description" content="python栈实现和案例栈是一种常用的数据结构，我们常说栈是先进后出的特点，正式这个特点，我们可以利用其记录很多状态，并返回到原来的状态。 本文以python实现， 然后在举例说明一些简单的应用。">
-<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201301/12/1357972240_7021.png">
-  
-  
-    <link rel="icon" href="/assets/img/favicon.ico">
-  
-  <link rel="stylesheet" href="/main.css">
-  
+  <head>
+    <meta charset="utf-8">
+    
+    <title>python栈实现和案例 | Yuankai Gou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="/favicon.png">
+    
 
-</head>
+    <link rel="stylesheet" href="/css/style.css">
 
-<body>
-  <div id="container">
-    <div class="left-col">
-      <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
+    <link rel="stylesheet" href="/js/google-code-prettify/atelier-plateau-dark.css">
+
+  </head>
+
+  <body>
+
+<header>
+	<a id="logo" href="/" title="Yuankai Gou">
+	<img src="/favicon.png" alt="Yuankai Gou"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="http://gushi.li" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="Enter Key..." type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
 			
-			<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
-			
-		</a>
-
-		<hgroup>
-		  <h1 class="header-author"><a href="/">小元</a></h1>
-		</hgroup>
-
-		
-		<p class="header-subtitle">技术随笔分享</p>
-		
-
-		<nav class="header-menu">
-			<ul>
-			
-				<li><a href="/">主页</a></li>
-	        
-			</ul>
-		</nav>
-		<nav class="header-smart-menu">
-	        
-    		
-    			
-    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
-    			
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
-    			
-    			
-            
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
-    			
-    			
-            
-		</nav>
-		<nav class="header-nav">
-			<div class="social">
 				
-					<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
-		        
-					<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
-		        
-			</div>
-		</nav>
-	</header>		
-</div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"><i class="icon-list"></i></div>
-  		<h1 class="header-author js-mobile-header hide">小元</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				
-					<img src="http://7xr4z1.com1.z0.glb.clouddn.com/litten.png" class="js-avatar">
-				
-			</div>
-			<hgroup>
-			  <h1 class="header-author">小元</h1>
-			</hgroup>
+				<li class="current-menu-item">
+					<a href="http://weibo.com/yumemor/" target="_blank">Weibo</a>
+				</li>
 			
-			<p class="header-subtitle">技术随笔分享</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/yuankaigou" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/u/5706883203" title="weibo">weibo</a>
-			        
-				</div>
-			</nav>
-		</header>				
+		</ul>
 	</div>
 </nav>
+	
 
-      <div class="body-wrap">
-        <article id="post-python栈实现和简单实用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+		<figure class="top-image" data-enable=true></figure>
+	
+</div>
+
+<!--文章列表-->
+<div class="wrapper">
   
-    <h1 class="article-title" itemprop="name">
+    <!--文章-->
+<article>
+	
+  
+    <h1 class="post-title" itemprop="name">
       python栈实现和案例
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="python栈实现和案例"><a href="#python栈实现和案例" class="headerlink" title="python栈实现和案例"></a>python栈实现和案例</h2><p><code>栈</code>是一种常用的数据结构，我们常说栈是先进后出的特点，正式这个特点，我们可以利用其记录很多状态，并返回到原来的状态。 本文以python实现， 然后在举例说明一些简单的应用。</p>
+	<div class='post-body mb'>
+		<h2 id="python栈实现和案例"><a href="#python栈实现和案例" class="headerlink" title="python栈实现和案例"></a>python栈实现和案例</h2><p><code>栈</code>是一种常用的数据结构，我们常说栈是先进后出的特点，正式这个特点，我们可以利用其记录很多状态，并返回到原来的状态。 本文以python实现， 然后在举例说明一些简单的应用。</p>
 <a id="more"></a>
 <h2 id="栈的结构"><a href="#栈的结构" class="headerlink" title="栈的结构"></a>栈的结构</h2><p><img src="http://img.my.csdn.net/uploads/201301/12/1357972240_7021.png" alt="栈"></p>
 <h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><ul>
@@ -159,7 +90,28 @@
 <li>isEmpty()  判断栈是否为空</li>
 <li>size()  返回栈中元素的个数</li>
 </ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>:</span></div><div class="line">	<span class="string">"""栈的模拟实现"""</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">		self.items = []</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> len(self.items) == <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, item)</span>:</span></div><div class="line">		self.items.append(item)</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> self.items.pop()</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">peek</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">if</span> <span class="keyword">not</span> self.isEmpty():</div><div class="line">			<span class="keyword">return</span> self.items[len(self.items) - <span class="number">1</span>]</div><div class="line">			</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> len(self.items)</div></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="python">class Stack:
+    &quot;&quot;&quot;栈的模拟实现&quot;&quot;&quot;
+
+    def __init__(self):
+        self.items = []
+
+    def isEmpty(self):
+        return len(self.items) == 0
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        return self.items.pop()
+
+    def peek(self):
+        if not self.isEmpty():
+            return self.items[len(self.items) - 1]
+
+    def size(self):
+        return len(self.items)
+</code></pre>
 <h2 id="栈的几个实例"><a href="#栈的几个实例" class="headerlink" title="栈的几个实例"></a>栈的几个实例</h2><ul>
 <li><p>实现一个栈，带有出栈（pop），入栈（push），取最小元素（getMin）三个方法。要保证这三个方法的时间复杂度都是O(1)</p>
 </li>
@@ -168,219 +120,187 @@
 </li>
 </ul>
 <p>问题1 的思路， 用一个最小值下标栈， 存储一直以来的最小值下标， 当不是最小值的数据出栈pass不理会; 如果是最小值， <code>最小值下标栈</code> 也同时pop()最小值下标， 那么剩下的<code>最小值下标栈</code> 中栈顶 元素就是 相应的最小值下标。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#coding=utf-8</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewStack</span>:</span></div><div class="line">	<span class="string">"""储存最小值的栈"""</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">		self.items = []</div><div class="line">		<span class="comment">#存储下标</span></div><div class="line">		self.stack = Stack()</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> len(self.items) == <span class="number">0</span></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, item)</span>:</span></div><div class="line"></div><div class="line">		<span class="comment">#如果item 小于 原来最小的元素 </span></div><div class="line">		<span class="keyword">if</span> self.stack.size() == <span class="number">0</span>:</div><div class="line">			self.stack.push(<span class="number">0</span>)</div><div class="line">		<span class="keyword">else</span>:</div><div class="line">			<span class="keyword">if</span> (item &lt; self.items[self.stack.peek()]):</div><div class="line">				<span class="comment">#存储小标 = （0， 1）2个元素 来第三个 3（-1）</span></div><div class="line">				self.stack.push(self.size())</div><div class="line">			<span class="keyword">else</span>:</div><div class="line">				<span class="keyword">pass</span></div><div class="line">		self.items.append(item)</div><div class="line"></div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="comment">#size = 4</span></div><div class="line">		<span class="comment"># [10 12 9 14]  [0, 2]</span></div><div class="line">		<span class="comment">#出栈 如果出栈的元素小标是 下标栈中的栈顶元素 下标也出站</span></div><div class="line">		<span class="comment">#如果不是不用管下标站</span></div><div class="line">		<span class="keyword">if</span> (self.size() - <span class="number">1</span>) == self.stack.peek():</div><div class="line">			self.stack.pop()</div><div class="line">		<span class="keyword">else</span>:</div><div class="line">			<span class="keyword">pass</span></div><div class="line">		<span class="keyword">return</span> self.items.pop()</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">peek</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">if</span> <span class="keyword">not</span> self.isEmpty():</div><div class="line">			<span class="keyword">return</span> self.items[len(self.items) - <span class="number">1</span>]</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">getMin</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> self.items[self.stack.peek()]</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">display</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">print</span> self.items</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(self)</span>:</span></div><div class="line">		<span class="keyword">return</span> len(self.items)</div></pre></td></tr></table></figure>
+<pre><code class="python">#coding=utf-8
+class NewStack:
+    &quot;&quot;&quot;储存最小值的栈&quot;&quot;&quot;
+    def __init__(self):
+        self.items = []
+        #存储下标
+        self.stack = Stack()
+
+    def isEmpty(self):
+        return len(self.items) == 0
+
+    def push(self, item):
+
+        #如果item 小于 原来最小的元素 
+        if self.stack.size() == 0:
+            self.stack.push(0)
+        else:
+            if (item &lt; self.items[self.stack.peek()]):
+                #存储小标 = （0， 1）2个元素 来第三个 3（-1）
+                self.stack.push(self.size())
+            else:
+                pass
+        self.items.append(item)
+
+
+    def pop(self):
+        #size = 4
+        # [10 12 9 14]  [0, 2]
+        #出栈 如果出栈的元素小标是 下标栈中的栈顶元素 下标也出站
+        #如果不是不用管下标站
+        if (self.size() - 1) == self.stack.peek():
+            self.stack.pop()
+        else:
+            pass
+        return self.items.pop()
+
+    def peek(self):
+        if not self.isEmpty():
+            return self.items[len(self.items) - 1]
+
+    def getMin(self):
+        return self.items[self.stack.peek()]
+
+    def display(self):
+        print self.items
+
+    def size(self):
+        return len(self.items)
+</code></pre>
 <p>问题2括号匹配思路:</p>
 <p>如果正括号出现就push入栈， 不是括号不管， 如果是反括号就出栈， 出栈的时候比较下标是否对应。最后如果正确匹配stack中size应该为0。pop异常(没有元素)也说明没有匹配。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_match</span><span class="params">(astring)</span>:</span></div><div class="line">	list1 = [<span class="string">"&#123;"</span>, <span class="string">"("</span>, <span class="string">"["</span>];</div><div class="line">	list2 = [<span class="string">"&#125;"</span>, <span class="string">")"</span>, <span class="string">"]"</span>];</div><div class="line">	is_right = <span class="keyword">True</span></div><div class="line">	<span class="keyword">try</span>:</div><div class="line">		<span class="keyword">for</span> x <span class="keyword">in</span> astring:</div><div class="line">			<span class="keyword">if</span> x <span class="keyword">in</span> list1:</div><div class="line">				stack1.push(x)</div><div class="line">			<span class="keyword">elif</span> x <span class="keyword">in</span> list2:</div><div class="line">				top = stack1.pop()</div><div class="line">				<span class="keyword">if</span> list1.index(top) != list2.index(x):</div><div class="line">					is_right = <span class="keyword">False</span></div><div class="line">					<span class="keyword">break</span></div><div class="line">			<span class="keyword">else</span>:</div><div class="line">				<span class="keyword">pass</span></div><div class="line">	<span class="keyword">except</span>:</div><div class="line">		is_right = <span class="keyword">False</span></div><div class="line"></div><div class="line">	<span class="keyword">if</span> stack1.size() != <span class="number">0</span>:</div><div class="line">		is_right = <span class="keyword">False</span></div><div class="line">	<span class="keyword">return</span> is_right</div></pre></td></tr></table></figure>
+<pre><code class="python">def is_match(astring):
+    list1 = [&quot;{&quot;, &quot;(&quot;, &quot;[&quot;];
+    list2 = [&quot;}&quot;, &quot;)&quot;, &quot;]&quot;];
+    is_right = True
+    try:
+        for x in astring:
+            if x in list1:
+                stack1.push(x)
+            elif x in list2:
+                top = stack1.pop()
+                if list1.index(top) != list2.index(x):
+                    is_right = False
+                    break
+            else:
+                pass
+    except:
+        is_right = False
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2015/12/01/python栈实现和简单实用/" class="archive-article-date">
-  	<time datetime="2015-12-01T06:48:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2015-12-01</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+    if stack1.size() != 0:
+        is_right = False
+    return is_right
+</code></pre>
+
 	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2015-12-01T06:48:00.000Z" itemprop="datePublished">2015-12-01</time>
+	</div>
 </article>
 
-  
-<nav id="article-nav">
-  
-    <a href="/2015/12/01/tornado路由映射 /" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          tornado的路由映射
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2014/12/19/al-quicksort/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">快速排序</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
+<!--评论-->
 
+	
+<div class="ds-thread" data-thread-key="python栈实现和简单实用" data-title="python栈实现和案例" data-url="http://yoursite.com/2015/12/01/python栈实现和简单实用/"></div>
+<script type="text/javascript">
 
-
-
-<div class="share_jia">
-	<!-- JiaThis Button BEGIN -->
-	<div class="jiathis_style">
-		<span class="jiathis_txt">Share to: &nbsp; </span>
-		<a class="jiathis_button_facebook"></a> 
-	    <a class="jiathis_button_twitter"></a>
-	    <a class="jiathis_button_plus"></a> 
-	    <a class="jiathis_button_tsina"></a>
-		<a class="jiathis_button_cqq"></a>
-		<a class="jiathis_button_douban"></a>
-		<a class="jiathis_button_weixin"></a>
-		<a class="jiathis_button_tumblr"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-	</div>
-	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
-	<!-- JiaThis Button END -->
-</div>
-
-
-
-
-
-
-
-
-
-      </div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2017 小元
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
-    <script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: false,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: true,
-		root: "/",
-		innerArchive: true
-	}
+var duoshuoQuery = {short_name:"yumemor"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
 </script>
 
-<script src="/./main.js"></script>
 
-
-    
-<div class="tools-col">
-  <ul class="btn-wrap">
-    
-      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
-    
-    
-      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
-    
-    
-    
-      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
-    
-  </ul>
-  <div class="tools-wrap">
-    
-    	<section class="tools-section tools-section-all chose">
-    	</section>
-    
-
-    
-    	<section class="tools-section tools-section-tag">
-    			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/SDWebImage/" style="font-size: 10px;">SDWebImage</a> <a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/django/" style="font-size: 16.67px;">django</a> <a href="/tags/flask/" style="font-size: 13.33px;">flask</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/js/" style="font-size: 13.33px;">js</a> <a href="/tags/mongodb/" style="font-size: 16.67px;">mongodb</a> <a href="/tags/oop/" style="font-size: 10px;">oop</a> <a href="/tags/pack/" style="font-size: 10px;">pack</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/sort/" style="font-size: 13.33px;">sort</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/tornado/" style="font-size: 10px;">tornado</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/破解/" style="font-size: 10px;">破解</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a>
-    			</div>
-    	</section>
-    
-
-    
-
-    
-    	<section class="tools-section tools-section-me">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;住在南方，北方生活&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚程序猿&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
-  	  	
-    	</section>
-    
-  </div>
   
 </div>
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
 
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
 
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
+  
 
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
 
-            <div class="pswp__top-bar">
+  <div class="wrapper"></div>
 
-                <!--  Controls are self-explanatory. Order can be changed. -->
 
-                <div class="pswp__counter"></div>
 
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
 
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
 
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://oct8d1mqf.bkt.clouddn.com/2016-10-17-15%3A42%3A28.jpg' alt='小元'>
+					<div class="media__body">
+						<h4>Yuankai Gou</h4>
+						<p class='site-description'>水深流静</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+							
+							<li>
+				        		<a href="http://weibo.com/u/5706883203" target="_blank">
+				        			
+				        				<i class="iconfont icon-weibo"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+							
+							<li>
+				        		<a href="https://github.com/yuankaigou" target="_blank">
+				        			
+				        				<i class="iconfont icon-github"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-  </div>
-</body>
+
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		
+			<span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
+		
+		<span>Theme by <a href="http://github.com/yumemor">Yumemor</a>. Powered by <a href="http://hexo.io">Hexo</a></span>
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+	<script src="/js/lib.js"></script>
+	<script src="/js/google-code-prettify/prettify.js"></script>
+	<script src="/js/module.js"></script>
+	<script src="/js/script.js"></script>
+	
+		<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function(){
+	 		$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+   			prettyPrint();
+		});
+	</script>
+	</body>
 </html>
