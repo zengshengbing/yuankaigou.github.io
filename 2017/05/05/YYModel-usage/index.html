@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>YYModel-详细使用 | Yuankai Gou</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    
+      <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="/js/google-code-prettify/atelier-plateau-dark.css">
+
+  </head>
+
+  <body>
+
+<header>
+	<a id="logo" href="/" title="Yuankai Gou">
+	<img src="/favicon.png" alt="Yuankai Gou"></a>
+	
+	
+		<!--搜索栏-->
+		<i class="js-toggle-search iconfont icon-search"></i>
+
+
+<form class="js-search search-form search-form--modal" method="get" action="http://gushi.li" role="search">
+	<div class="search-form__inner">
+		<div>
+			<i class="iconfont icon-search"></i>
+			<input class="text-input" placeholder="Enter Key..." type="search">
+		</div>
+	</div>
+</form>
+	
+
+	
+		<!--侧边导航栏-->
+		<a id="nav-toggle" href="#"><span></span></a>
+
+<nav>
+	<div class="menu-top-container">
+		<ul id="menu-top" class="menu">
+			
+				
+				<li class="current-menu-item">
+					<a href="http://weibo.com/yumemor/" target="_blank">Weibo</a>
+				</li>
+			
+		</ul>
+	</div>
+</nav>
+	
+
+</header>
+<div class="m-header ">
+	<section id="hero1" class="hero">
+		<div class="inner">
+		</div>
+	</section>
+	
+		<figure class="top-image" data-enable=true></figure>
+	
+</div>
+
+<!--文章列表-->
+<div class="wrapper">
+  
+    <!--文章-->
+<article>
+	
+  
+    <h1 class="post-title" itemprop="name">
+      YYModel-详细使用
+    </h1>
+  
+
+	<div class='post-body mb'>
+		<h2 id="YYModel使用"><a href="#YYModel使用" class="headerlink" title="YYModel使用"></a>YYModel使用</h2><h3 id="1-简单的-Model-与-JSON-相互转换"><a href="#1-简单的-Model-与-JSON-相互转换" class="headerlink" title="1.简单的 Model 与 JSON 相互转换"></a>1.简单的 Model 与 JSON 相互转换</h3><p>这个很多库都必须的 类似的功能。名字和字典中的键一致</p>
+<pre><code class="objective-c">
+@interface YKUser : NSObject
+@property UInt64 uid;
+@property NSString *name;
+@property NSDate *created;
+@end
+@implementation YKUser
+@end
+
+
+//数据转模型代码
+  NSData *data = [NSData dataNamed:@&quot;twitter_0.json&quot;];
+   YKUser *user = [YKUser modelWithJSON:data];
+
+    NSLog(@&quot;%@&quot;, user.name);
+    NSLog(@&quot;%zd&quot;, user.uid);
+    NSLog(@&quot;%@&quot;, user.created);
+</code></pre>
+<p>JSON/Dictionary 中的对象类型与 Model 属性不一致时，YYModel 将会进行如下自动转换。自动转换不支持的值将会被忽略，以避免各种潜在的崩溃问题。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1467716-33ae643a0ca314fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>例子: 如果数据是字符串”no”， 对应到模型中类型不一致就会自动转为0，或者bool类型。 NSNull这样就不用判断class， 空情况了， 直接if(true)就好了。</p>
+<h3 id="2-Model-属性名和-JSON-中的-Key-不相同"><a href="#2-Model-属性名和-JSON-中的-Key-不相同" class="headerlink" title="2.Model 属性名和 JSON 中的 Key 不相同"></a>2.Model 属性名和 JSON 中的 Key 不相同</h3><p>数据</p>
+<pre><code class="commonlisp">{
+    &quot;n&quot;:&quot;Harry Pottery&quot;,
+    &quot;p&quot;: 256,
+    &quot;ext&quot; : {
+        &quot;desc&quot; : &quot;A book written by J.K.Rowing.&quot;
+    },
+    &quot;ID&quot; : 100010
+}
+</code></pre>
+<pre><code class="objective-c">
+@interface YKUser : NSObject
+
+@property NSString *name;
+@property NSInteger page;
+@property NSString *desc;
+@property NSString *bookID;
+
+@end
+@implementation YKUser
++(NSDictionary *)modelCustomPropertyMapper{
+    return @{@&quot;name&quot;:@&quot;n&quot;,
+             @&quot;page&quot;:@&quot;p&quot;,
+             @&quot;desc&quot;:@&quot;ext.desc&quot;,
+             @&quot;bookID&quot;:@[@&quot;id&quot;,@&quot;ID&quot;,@&quot;book_id&quot;]
+             };
+}
+
+@end
+
+
+//使用
+NSData *data = [NSData dataNamed:@&quot;twitter_0.json&quot;];
+    YKUser *user = [YKUser modelWithJSON:data];
+
+    NSLog(@&quot;%@&quot;, user.desc);
+</code></pre>
+<p>你可以把一个或一组 json key (key path) 映射到一个或多个属性。如果一个属性没有映射关系，那默认会使用相同属性名作为映射。<br>在 json-&gt;model 的过程中：如果一个属性对应了多个 json key，那么转换过程会按顺序查找，并使用第一个不为空的值。<br>在 model-&gt;json 的过程中：如果一个属性对应了多个 json key (key path)，那么转换过程仅会处理第一个 json key (key path)；如果多个属性对应了同一个 json key，则转换过过程会使用其中任意一个不为空的值。</p>
+<h2 id="3-Model-包含其他-Model"><a href="#3-Model-包含其他-Model" class="headerlink" title="3.Model 包含其他 Model"></a>3.Model 包含其他 Model</h2><p>原始json数据</p>
+<pre><code class="json">{
+    &quot;author&quot;:{
+        &quot;name&quot;:&quot;J.K.Rowling&quot;,
+        &quot;birthday&quot;:&quot;1965-07-31T00:00:00+0000&quot;
+    },
+    &quot;name&quot;:&quot;Harry Potter&quot;,
+    &quot;pages&quot;:256
+}
+</code></pre>
+<pre><code class="objective-c">// Model: 什么都不用做，转换会自动完成
+@interface Author : NSObject
+@property NSString *name;
+@property NSDate *birthday;
+@end
+@implementation Author
+@end
+
+@interface Book : NSObject
+@property NSString *name;
+@property NSUInteger pages;
+@property Author *author; //Book 包含 Author 属性
+@end
+@implementation Book
+@end
+
+
+//数据读取
+    NSData *data = [NSData dataNamed:@&quot;twitter_0.json&quot;];
+    Book *book = [Book modelWithJSON:data];
+    NSLog(@&quot;%@&quot;, book.author.name);
+</code></pre>
+<h2 id="4-容器类属性"><a href="#4-容器类属性" class="headerlink" title="4.容器类属性"></a>4.容器类属性</h2><pre><code class="objective-c">@class Shadow, Border, Attachment;
+
+@interface Attributes
+@property NSString *name;
+@property NSArray *shadows; //Array&lt;Shadow&gt;
+@property NSSet *borders; //Set&lt;Border&gt;
+@property NSMutableDictionary *attachments; //Dict&lt;NSString,Attachment&gt;
+@end
+
+@implementation Attributes
+// 返回容器类中的所需要存放的数据类型 (以 Class 或 Class Name 的形式)。
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@&quot;shadows&quot; : [Shadow class],
+             @&quot;borders&quot; : Border.class,
+             @&quot;attachments&quot; : @&quot;Attachment&quot; };
+}
+@end
+</code></pre>
+<p>在实际使用过过程中，[Shadow class]，Border.class，@”Attachment”没有明显的区别。<br>这里仅仅是创建作者有说明，实际使用时，需要对其遍历，取出容器中得字典，然后继续字典转模型。（YYModel的核心是通过runtime获取结构体中得Ivars的值，将此值定义为key,然后给key赋value值，所以我们需要自己遍历容器（NSArray，NSSet，NSDictionary），获取每一个值，然后KVC）。</p>
+<pre><code class="objective-c">NSDictionary *json =[self getJsonWithJsonName:@&quot;ContainerModel&quot;];
+ContainerModel *containModel = [ContainerModel yy_modelWithDictionary:json];
+NSDictionary *dataDict = [containModel valueForKey:@&quot;data&quot;];
+//定义数组，接受key为list的数组
+self.listArray = [dataDict valueForKey:@&quot;list&quot;]; 
+ //遍历数组
+[self.listArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDictionary *listDict = obj;
+        //获取数组中得字典
+        List *listModel = [List yy_modelWithDictionary:listDict];
+        //获取count 和 id
+        NSString *count = [listModel valueForKey:@&quot;count&quot;];
+        NSString *id = [listModel valueForKey:@&quot;id&quot;];
+</code></pre>
+<h2 id="5-黑名单与白名单"><a href="#5-黑名单与白名单" class="headerlink" title="5.黑名单与白名单"></a>5.黑名单与白名单</h2><pre><code class="objective-c">@interface User
+@property NSString *name;
+@property NSUInteger age;
+@end
+
+@implementation Attributes
+// 如果实现了该方法，则处理过程中会忽略该列表内的所有属性
++ (NSArray *)modelPropertyBlacklist {
+    return @[@&quot;test1&quot;, @&quot;test2&quot;];
+}
+// 如果实现了该方法，则处理过程中不会处理该列表外的属性。
++ (NSArray *)modelPropertyWhitelist {
+    return @[@&quot;name&quot;];
+}
+@end
+</code></pre>
+<h2 id="6-数据校验与自定义转换"><a href="#6-数据校验与自定义转换" class="headerlink" title="6.数据校验与自定义转换"></a>6.数据校验与自定义转换</h2><pre><code class="objective-c">// JSON:
+{
+    &quot;name&quot;:&quot;Harry&quot;,
+    &quot;timestamp&quot; : 1445534567     //时间戳
+}
+
+// Model:
+@interface User
+@property NSString *name;
+@property NSDate *createdAt;
+@end
+
+@implementation User
+// 当 JSON 转为 Model 完成后，该方法会被调用。
+// 你可以在这里对数据进行校验，如果校验不通过，可以返回 NO，则该 Model 会被忽略。
+// 你也可以在这里做一些自动转换不能完成的工作。
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    NSNumber *timestamp = dic[@&quot;timestamp&quot;];
+    if (![timestamp isKindOfClass:[NSNumber class]]) return NO;
+      //相当于自己实现属性赋值
+    _createdAt = [NSDate dateWithTimeIntervalSince1970:timestamp.floatValue];
+    return YES;
+}
+
+// 当 Model 转为 JSON 完成后，该方法会被调用。
+// 你可以在这里对数据进行校验，如果校验不通过，可以返回 NO，则该 Model 会被忽略。
+// 你也可以在这里做一些自动转换不能完成的工作。
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    if (!_createdAt) return NO;
+    dic[@&quot;timestamp&quot;] = @(n.timeIntervalSince1970);
+    return YES;
+}
+@end
+</code></pre>
+
+	</div>
+	<div class="meta split">
+		
+			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+		<time class="post-date" datetime="2017-05-05T04:00:10.000Z" itemprop="datePublished">2017-05-05</time>
+	</div>
+</article>
+
+<!--评论-->
+
+	
+<div class="ds-thread" data-thread-key="YYModel-usage" data-title="YYModel-详细使用" data-url="http://yoursite.com/2017/05/05/YYModel-usage/"></div>
+<script type="text/javascript">
+
+var duoshuoQuery = {short_name:"yumemor"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+
+
+  
+</div>
+
+
+  <svg id="bigTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
+    <path d="M0 0 L50 100 L100 0 Z"></path>
+  </svg>
+
+  
+
+
+  <div class="wrapper"></div>
+
+
+
+
+
+<div class="fat-footer">
+	<div class="wrapper">
+		<div class="layout layout--center">
+			<div class="layout__item palm-mb">
+				<div class="media">
+					<img class="headimg" src='http://oct8d1mqf.bkt.clouddn.com/2016-10-17-15%3A42%3A28.jpg' alt='小元'>
+					<div class="media__body">
+						<h4>Yuankai Gou</h4>
+						<p class='site-description'>水深流静</p>
+					</div>
+				</div>
+				<div class="author-contact">
+					<ul>
+						
+							
+							<li>
+				        		<a href="http://weibo.com/u/5706883203" target="_blank">
+				        			
+				        				<i class="iconfont icon-weibo"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+							
+							<li>
+				        		<a href="https://github.com/yuankaigou" target="_blank">
+				        			
+				        				<i class="iconfont icon-github"></i>
+				        			
+				        		</a>
+				        	</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer class="footer" role="contentinfo">
+	<div class="wrapper wrapper--wide split split--responsive">
+		
+			<span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次, 访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
+		
+		<span>Powered by <a href="http://hexo.io">Hexo</a></span>
+	</div>
+</footer>
+
+	<!-－这里导入了 lib.js 里面涵盖了 jQuery 等框架 所以注释掉-->
+	<!--<script src="http://lib.sinaapp.com/js/jquery/2.0/jquery.min.js"></script>-->
+	<script src="/js/lib.js"></script>
+	<script src="/js/google-code-prettify/prettify.js"></script>
+	<script src="/js/module.js"></script>
+	<script src="/js/script.js"></script>
+	
+		<script async src="http://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+	<script type='text/javascript'>
+		//代码高亮
+		$(document).ready(function(){
+	 		$('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+   			prettyPrint();
+		});
+	</script>
+	</body>
+</html>
