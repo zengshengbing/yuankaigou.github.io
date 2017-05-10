@@ -84,7 +84,11 @@
 <blockquote>
 <p>持续集成毫无疑问加快了我们整个产品的效率，代码只需要push到git就会自动打包，让我们更加关注Coding。本文主要讲解 Jenkins + fir.im  方案实践， 从代码到 自动打包为ipa文件。遇到的坑都会一一提到。</p>
 </blockquote>
-<p>###Jenkins 与 fir.im 作用概要</p>
+<font color="#0099ff" size="5" face="黑体">基本流程</font>
+
+<p><img src="http://opeqpbgit.bkt.clouddn.com/jenkins%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt=""></p>
+<font color="#0099ff" size="5" face="黑体">Jenkins 与 fir.im 作用概要</font>
+
 <ul>
 <li><em>Jenkins</em>的作用是在内部搭建一个服务器， 通过网页web端去配置(和通常的终端去config文件相比更加方便了), 我们可以在其中创建工程, 绑定git仓库(GitLab等都支持的), 就可以实现自动打包的过程。 </li>
 </ul>
@@ -93,20 +97,28 @@
 </ul>
 <p>把他们的功能结合就是 <code>iOS-Jenkins + fir.im 持续集成实践</code>。当然fir.im也有一个 fir.ci(自动打包), 缺点就是你要暴露自己的代码了。 jenkins的优点是我们可以在内网把源码打包成ipa文件, 二维码过程放到fir.im中。使用fir.im优点是外网可以下载安装, 方便客户等人员的使用。</p>
 <p>下面主要介绍安装的步骤</p>
-<h3 id="1-安装Jenkins"><a href="#1-安装Jenkins" class="headerlink" title="1.安装Jenkins"></a>1.安装Jenkins</h3><ul>
+<font color="#0099ff" size="5" face="黑体">1.安装Jenkins</font>
+
+
+<ul>
 <li>方式1: 安装Jenkins可以到 <a href="https://jenkins.io" target="_blank" rel="external">jenkins官网</a> 下载pkg文件安装, 缺点是很多的问题, 所以不建议使用这种安装方式。</li>
 <li>方式2: 采用 <code>Homebrew</code> 安装</li>
 </ul>
 <p><em>主要步骤:</em></p>
 <ol>
-<li><code>$ brew install jenkins</code> <img src="http://opeqpbgit.bkt.clouddn.com/1jenkins%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.png" alt=""></li>
-<li>启动 终端输入 <code>jenkins</code> 服务器就跑起来</li>
+<li><p>安装 </p>
+<pre><code>$ brew install jenkins
+</code></pre></li>
+<li><p>启动 终端输入 <em>jenkins</em> 服务器就跑起来</p>
+</li>
 </ol>
-<p><code>信息: Jenkins is fully up and running</code> 存下初始启动密钥 </p>
+<p>看到这一段， 记事本保存密钥备用</p>
 <pre><code>Please use the following password to proceed to installation:
 
 cd77621f2db841af9e44e5477915179b（密钥）
-</code></pre><h3 id="2-账户配置"><a href="#2-账户配置" class="headerlink" title="2.账户配置"></a>2.账户配置</h3><p>浏览器访问 <code>http://localhost:8080</code> 输入密钥 </p>
+</code></pre><font color="#0099ff" size="5" face="黑体">2.账户配置</font>
+
+<p>浏览器访问 <code>http://localhost:8080</code> 输入密钥 </p>
 <p><img src="http://opeqpbgit.bkt.clouddn.com/2%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81.png" alt=""></p>
 <p>然后进入选择安装插件页面, 选择安装通用插件(suggetsted plugins)。</p>
 <p><img src="http://opeqpbgit.bkt.clouddn.com/3%E9%80%89%E6%8B%A9%E5%AE%89%E8%A3%85%E9%80%9A%E7%94%A8%E6%8F%92%E4%BB%B6.png" alt=""></p>
@@ -118,15 +130,25 @@ cd77621f2db841af9e44e5477915179b（密钥）
 <li>Xcode integration</li>
 <li>GitHub plugin</li>
 </ul>
-<h3 id="3-项目配置-工程名"><a href="#3-项目配置-工程名" class="headerlink" title="3.项目配置-工程名"></a>3.项目配置-工程名</h3><p>完成后 新建 -&gt; 自由风格项目</p>
+<font color="#0099ff" size="5" face="黑体">3.项目配置-工程名</font> 
+
+<p>完成后 新建 -&gt; 自由风格项目</p>
 <p>填写项目名字, 最好和git名一致方便对应。<br>git仓库中的项目配置好证书, 记得添加测试人员的UDID</p>
 <p><code>https://github.com/yuankaigou/TestJenkins.git</code></p>
 <p><img src="http://opeqpbgit.bkt.clouddn.com/7%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA%E5%90%8D%E5%AD%97.png" alt=""></p>
-<h3 id="4-项目配置-源码管理"><a href="#4-项目配置-源码管理" class="headerlink" title="4.项目配置-源码管理"></a>4.项目配置-源码管理</h3><p>根据需要的选择, 这里我使用的是git,选用git.写入仓库地址就可以了</p>
+<font color="#0099ff" size="5" face="黑体">4.项目配置-源码管理</font> 
+
+
+<p>根据需要的选择, 这里我使用的是git,选用git.写入仓库地址就可以了</p>
 <p><img src="http://opeqpbgit.bkt.clouddn.com/8%E6%BA%90%E7%A0%81%E7%AE%A1%E7%90%86-git.png" alt=""></p>
-<h3 id="5-项目配置-构建触发器"><a href="#5-项目配置-构建触发器" class="headerlink" title="5.项目配置-构建触发器"></a>5.项目配置-构建触发器</h3><p>这里就是告诉jenkins什么时候自动构建,这里我同时设置了每周一到周五在每天的8点到9点之间执行一次,当然也可以不设置。</p>
+<font color="#0099ff" size="5" face="黑体">5.项目配置-构建触发器</font> 
+
+
+<p>这里就是告诉jenkins什么时候自动构建,这里我同时设置了每周一到周五在每天的8点到9点之间执行一次,当然也可以不设置。</p>
 <p><img src="http://7xkqix.com1.z0.glb.clouddn.com/triggerinfo.png?attname=" alt=""></p>
-<h3 id="6-项目配置-添加构建步骤"><a href="#6-项目配置-添加构建步骤" class="headerlink" title="6.项目配置-添加构建步骤"></a>6.项目配置-添加构建步骤</h3><ol>
+<font color="#0099ff" size="5" face="黑体">6.项目配置-添加构建步骤</font> 
+
+<ol>
 <li>这里Target请于Xcode项目中Target的名字对应</li>
 <li><code>Clean before build</code>设置为YES</li>
 <li><code>Configuration</code>我选择了Release（在Release的时候Archive）</li>
@@ -137,14 +159,19 @@ cd77621f2db841af9e44e5477915179b（密钥）
 <blockquote>
 <p>这个输出路径重要, 一会上传的时候 必须和产出的路径一致, 否则找不到ipa包</p>
 </blockquote>
-<h3 id="7-项目配置-再添加一个构建步骤-gt-Xcode证书信息"><a href="#7-项目配置-再添加一个构建步骤-gt-Xcode证书信息" class="headerlink" title="7.项目配置-再添加一个构建步骤 -&gt; Xcode证书信息"></a>7.项目配置-再添加一个构建步骤 -&gt; Xcode证书信息</h3><p>我这里是在上传至Git的项目里已经配置过证书和Provisioning Profiles。我们电脑中都有钥匙串(keychain)不用去创建这个文件。</p>
+<font color="#0099ff" size="5" face="黑体">7.项目配置-再添加一个构建步骤 -&gt; Xcode证书信息</font> 
+
+<p>我这里是在上传至Git的项目里已经配置过证书和Provisioning Profiles。我们电脑中都有钥匙串(keychain)不用去创建这个文件。</p>
 <ol>
 <li>打开Unlock Keychain</li>
 <li>Keychain path 设置为 ${HOME}/Library/Keychains/login.keychain</li>
 <li>Keychain password 为你钥匙串的密码(就是你钥匙串访问密码=电脑密码)</li>
 </ol>
 <p><img src="http://7xkqix.com1.z0.glb.clouddn.com/xcode-2.png?attname=" alt=""></p>
-<h3 id="8-项目配置-构建后操作-执行脚本"><a href="#8-项目配置-构建后操作-执行脚本" class="headerlink" title="8.项目配置-构建后操作-执行脚本"></a>8.项目配置-构建后操作-执行脚本</h3><p>选择<code>Execute shell</code> 在脚本框command 中输入</p>
+<font color="#0099ff" size="5" face="黑体">8.项目配置-构建后操作-执行脚本 -&gt; Xcode证书信息</font> 
+
+
+<p>选择<code>Execute shell</code> 在脚本框command 中输入</p>
 <p><code>fir p ${WORKSPACE}/build/Release-iphoneos/build/gouyuankai/build/TestJenkins.ipa -T #API Token#</code> </p>
 <blockquote>
 <p>其中${WORKSPACE}/build/为4.5中.ipa的输出路径，#API Token#为fir.im的API Token, 一个账户只有一个 官网点击头像就可以获得。新版fir.im获取方式见下面。</p>
@@ -155,19 +182,26 @@ cd77621f2db841af9e44e5477915179b（密钥）
 <p>上面的命令来自 fir.im 的工具 fir-cli，这是他们的官方使用说明 官方工具 fir-cli <a href="https://github.com/FIRHQ/fir-cli/blob/master/README.md" target="_blank" rel="external">使用说明</a></p>
 <p>保存后点击 <code>立即构建</code> 这个相当于是我们手动构建版本</p>
 <p>可以点击小圆点 查看详情, 红色为失败。</p>
-<h3 id="9-前往fir-im平台"><a href="#9-前往fir-im平台" class="headerlink" title="9.前往fir.im平台"></a>9.前往fir.im平台</h3><p>前往平台, 看看测试应用吧。</p>
+<font color="#0099ff" size="5" face="黑体">9.前往fir.im平台</font> 
+
+
+<p>前往平台, 看看测试应用吧。</p>
 <p><img src="http://opeqpbgit.bkt.clouddn.com/11%E6%88%90%E5%8A%9F%E5%90%8E%E7%BB%93%E6%9E%9C.png" alt=""></p>
-<h3 id="可能Bug-关于xcode8-3-Bug解决"><a href="#可能Bug-关于xcode8-3-Bug解决" class="headerlink" title="可能Bug:关于xcode8.3 Bug解决"></a>可能Bug:关于xcode8.3 Bug解决</h3><p><code>xcrun: error: unable to find utility &quot;PackageApplication&quot;, not a developer tool or in PATH</code></p>
+<font color="#0099ff" size="5" face="黑体">可能Bug:关于xcode8.3 Bug解决</font> 
+
+
+
+<p><code>xcrun: error: unable to find utility &quot;PackageApplication&quot;, not a developer tool or in PATH</code></p>
 <p>原因: xcode 8.3 没有了PackageApplication文件。但是低版本xcode是有的， 所有找一个低版本的文件考过来就好</p>
 <p>PackageApplication: 下载地址</p>
 <p><a href="https://pan.baidu.com/s/1jHJF2Lo" target="_blank" rel="external">https://pan.baidu.com/s/1jHJF2Lo</a></p>
 <p>放到下面这个目录:</p>
-<p><code>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/</code></p>
-<p>然后执行命令</p>
-<p><code>sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer/</code></p>
-<p>权限修改</p>
-<p><code>chmod +x /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/PackageApplication</code></p>
-
+<pre><code>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/
+</code></pre><p>然后执行命令</p>
+<pre><code>sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer/
+</code></pre><p>权限修改</p>
+<pre><code>chmod +x /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/PackageApplication
+</code></pre>
 	</div>
 	<div class="meta split">
 		
